@@ -11,8 +11,8 @@ public class AEVector extends AERoot {
 	public AEVector( float x, float y, float z) {
 		this.set( x, y, z);
 	}
-	public AEVector( float x, float z) {
-		this.set( x, z);
+	public AEVector( float x, float y) {
+		this.set( x, y);
 	}
 	
 	public void set( float x, float y, float z) {
@@ -20,9 +20,9 @@ public class AEVector extends AERoot {
 		this.y = y;
 		this.z = z;
 	}
-	public void set( float x, float z) {
+	public void set( float x, float y) {
 		this.x = x;
-		this.z = z;
+		this.y = y;
 	}
 	
 	public AEVector add( AEVector a, AEVector b) {
