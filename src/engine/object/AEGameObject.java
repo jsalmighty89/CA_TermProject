@@ -14,26 +14,40 @@ public class AEGameObject extends AEObject {
 	
 	public AEGameObject() {
 		transform = new AETransform();
+		childs = new LinkedList<AEGameObject>();
+	}
+	
+	public AETransform getTransform() {
+		return transform;
 	}
 	
 	// parent
 	public void setParent( AEGameObject parent) {
+		setParent( parent, false);
+	}
+	protected void setParent( AEGameObject parent, boolean internalCall) {
 		this.parent = parent;
+		if( internalCall == false)
+			this.parent.addChild( this, true);
 	}
 	public AEGameObject getParent() {
 		return parent;
 	}
 	// child
 	public void addChild( AEGameObject object) {
+		addChild( object, false);
+	}
+	protected void addChild( AEGameObject object, boolean internalCall) {
 		if( childs.contains( object))
-			return;
-		
+			return;		
 		childs.add( object);
+		
+		if( internalCall == false)
+			object.setParent( this, true);
 	}
 	public void removeChild( AEGameObject object) {
 		if( childs.contains( object) == false)
 			return;
-		
 		childs.remove( object);
 	}
 }
