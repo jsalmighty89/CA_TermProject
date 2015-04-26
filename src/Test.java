@@ -1,4 +1,4 @@
-package engine.base;
+
 
 import org.newdawn.slick.AngelCodeFont;
 import org.newdawn.slick.AppGameContainer;
@@ -10,13 +10,13 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Transform;
 
 import engine.framework.AEFramework;
+import engine.object.SpriteTest;
 
 public class Test extends BasicGame{
-
-	float test=0.0f;
 	
 	AEFramework framework;
-	Image img;
+	
+	SpriteTest a,b,c;
 
 	public Test(String title) {
 		super(title);
@@ -32,25 +32,29 @@ public class Test extends BasicGame{
 	}
 
 	@Override
-	public void render(GameContainer arg0, Graphics arg1) throws SlickException {		
-		arg1.drawString( "BCD123", 10, 100);
-		arg1.drawString( "Å×½ºÆ®ABCD", 10, 200);
-		img.setRotation( test);
-		arg1.drawImage( img,  200,  200);
+	public void render(GameContainer gc, Graphics graphic) throws SlickException {		
+		framework.render( graphic);
 	}
 
 	@Override
-	public void init(GameContainer arg0) throws SlickException {
+	public void init(GameContainer gc) throws SlickException {
 		// TODO Auto-generated method stub
-		img = new Image("Test.png");
+
+		framework = AEFramework.getInstance();
 		
-		framework = new AEFramework();
+		TestLevel level = new TestLevel();
+		framework.addLevel( level);
+		framework.setLevel( "TestLevel");
+		
+		gc.setTargetFrameRate( 60);
+		gc.setVSync( true);
 	}
 
 	@Override
-	public void update(GameContainer arg0, int arg1) throws SlickException {
-		// TODO Auto-generated method stub
-		test += 1.0f * arg1*0.01f;
+	public void update(GameContainer gc, int dt) throws SlickException {
+		float deltaTime = dt * 0.001f;
+		
+		framework.update( deltaTime, gc);
 	}
 
 }

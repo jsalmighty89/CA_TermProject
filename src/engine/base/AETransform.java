@@ -8,6 +8,7 @@ public class AETransform extends AERoot {
 	protected float rotation;
 	protected AEVector position;
 	
+	// world
 	protected AEMatrix2D matrix;
 	
 	protected boolean needUpdateBuffer;

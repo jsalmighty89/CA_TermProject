@@ -2,6 +2,7 @@ package engine.framework;
 
 import java.util.LinkedList;
 
+import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 
 import engine.object.AEGameObject;
@@ -12,9 +13,7 @@ public class AEFramework extends AEObject{
 	// level
 	protected LinkedList<AELevel> listLevel;
 	protected AELevel currentActiveLevel;
-	// scenegraph
-	protected AESceneGraph sceneGraph;
-	
+
 	// singleton instance
 	private static AEFramework _instance = null;
 	public static AEFramework getInstance() {
@@ -26,7 +25,6 @@ public class AEFramework extends AEObject{
 	public AEFramework() {
 		listLevel = new LinkedList<AELevel>();
 		currentActiveLevel = null;
-		sceneGraph = new AESceneGraph();
 	}
 	
 	public void addLevel( AELevel level) {
@@ -45,18 +43,40 @@ public class AEFramework extends AEObject{
 		
 		return null;
 	}
+	public void setLevel( AELevel level) {
+		if( listLevel.contains( level) == false) {
+			// critical error. not registered level.
+			return;
+		}
+		
+		if( currentActiveLevel != null) {
+			currentActiveLevel.releaseLevel();
+		}
+		
+		currentActiveLevel = level;
+		level.initLevel();
+	}
+	public void setLevel( String levelName) {
+		AELevel level = getLevel( levelName);
+		setLevel( level);
+	}
 	
 	// SceneGraph-related
 	public void addToSceneRoot( AEGameObject object) {
-		sceneGraph.getRoot().addChild( object);
+		if( currentActiveLevel != null)
+			currentActiveLevel.addToSceneRoot( object);
 	}
 	
 	
-	public void update() {
-		sceneGraph.updateSceneGraph();
+	public void update(float deltaTime, GameContainer gc) {
+		if( currentActiveLevel != null) {
+			currentActiveLevel.update( deltaTime, gc);
+		}
 	}
 	
 	public void render( Graphics graphic) {
-		sceneGraph.renderSceneGraph( graphic);
+		if( currentActiveLevel != null) {
+			currentActiveLevel.getSceneGraph().renderSceneGraph( graphic);
+		}
 	}
 }

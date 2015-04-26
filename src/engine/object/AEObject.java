@@ -1,5 +1,7 @@
 package engine.object;
 
+import org.newdawn.slick.GameContainer;
+
 import engine.base.AERoot;
 
 public class AEObject extends AERoot {
@@ -19,7 +21,7 @@ public class AEObject extends AERoot {
 		return objectName;
 	}
 	
-	public void update() {
+	public void update(float deltaTime, GameContainer gc) {
 		
 	}
 }
