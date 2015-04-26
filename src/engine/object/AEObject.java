@@ -19,7 +19,7 @@ public class AEObject extends AERoot {
 		return objectName;
 	}
 	
-	public void Update() {
+	public void update() {
 		
 	}
 }

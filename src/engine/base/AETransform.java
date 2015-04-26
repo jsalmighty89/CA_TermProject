@@ -80,7 +80,7 @@ public class AETransform extends AERoot {
 		needUpdateBuffer = false;
 	}
 	
-	public void updateParentMatrix( AETransform parentTransform) {
+	public void updateFromParentMatrix( AETransform parentTransform) {
 		if( parentTransform == null)
 			matrix.copyFrom( matrixLocal);
 		else

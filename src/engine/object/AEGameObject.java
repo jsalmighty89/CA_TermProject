@@ -50,4 +50,7 @@ public class AEGameObject extends AEObject {
 			return;
 		childs.remove( object);
 	}
+	public LinkedList<AEGameObject> getChildList() {
+		return childs;
+	}
 }
