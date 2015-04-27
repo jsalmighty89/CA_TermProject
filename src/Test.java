@@ -27,7 +27,7 @@ public class Test extends BasicGame{
 		// TODO Auto-generated method stub
 		AppGameContainer app = new AppGameContainer( new Test("TestWindow"));
 		
-		app.setDisplayMode( 640, 480, false);
+		app.setDisplayMode( 1280, 720, false);
 		app.start();
 	}
 
