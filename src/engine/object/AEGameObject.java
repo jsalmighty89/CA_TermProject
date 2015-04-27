@@ -27,7 +27,7 @@ public class AEGameObject extends AEObject {
 	}
 	protected void setParent( AEGameObject parent, boolean internalCall) {
 		this.parent = parent;
-		if( internalCall == false)
+		if( internalCall == false && parent != null)
 			this.parent.addChild( this, true);
 	}
 	public AEGameObject getParent() {
@@ -42,7 +42,7 @@ public class AEGameObject extends AEObject {
 			return;		
 		childs.add( object);
 		
-		if( internalCall == false)
+		if( internalCall == false && object != null)
 			object.setParent( this, true);
 	}
 	public void removeChild( AEGameObject object) {

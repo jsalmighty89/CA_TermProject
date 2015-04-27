@@ -25,22 +25,56 @@ public class AEVector extends AERoot {
 		this.y = y;
 	}
 	
-	public AEVector add( AEVector a, AEVector b) {
-		return new AEVector( a.x + b.x, a.y + b.y, a.z + b.z);
+	public static AEVector add( AEVector u, AEVector v) {
+		return new AEVector( u.x + v.x, u.y + v.y, u.z + v.z);
 	}
-	public AEVector sub( AEVector a, AEVector b) {
-		return new AEVector( a.x - b.x, a.y - b.y, a.z - b.z);
+	public void add( AEVector v) {
+		x += v.x;
+		y += v.y;
+		z += v.z;
 	}
-	public AEVector cross( ) {
+	public static AEVector sub( AEVector u, AEVector v) {
+		return new AEVector( u.x - v.x, u.y - v.y, u.z - v.z);
+	}
+	public void sub( AEVector v) {
+		x -= v.x;
+		y -= v.y;
+		z -= v.z;
+	}
+	public AEVector cross() {
 		return new AEVector();
 	}
-	public AEVector mul() {
-		return new AEVector();
+	public static AEVector multiply( AEVector u, float scalar) {
+		AEVector returnVector = new AEVector();
+		returnVector.x = u.x * scalar;
+		returnVector.y = u.y * scalar;
+		returnVector.z = u.z * scalar;
+		return returnVector;
+	}
+	public void multiply( float scalar) {
+		x *= scalar;
+		y *= scalar;
+		z *= scalar;
 	}
 	public float length() {
-		return 0.0f;
+		return (float)Math.sqrt( lengthSqrt());
 	}
 	public float lengthSqrt() {
-		return 0.0f;
+		return (x*x + y*y + z*z);
+	}
+	
+	public static AEVector normalize( AEVector u) {
+		AEVector returnVector = new AEVector();
+		float length = u.length();
+		returnVector.x = u.x / length;
+		returnVector.y = u.y / length;
+		returnVector.z = u.z / length;
+		return returnVector;
+	}
+	public void normalize() {
+		float length = this.length();
+		x = x / length;
+		y = y / length;
+		z = z / length;
 	}
 }

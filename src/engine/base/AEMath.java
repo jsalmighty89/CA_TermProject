@@ -7,4 +7,8 @@ public class AEMath {
 	public static float rad2deg( float rad) {
 		return rad * 57.295779513f;
 	}
+	
+	public static float getRandomRange( float from, float to) {
+		return (float)(Math.random() * ( to - from) + from);
+	}
 }

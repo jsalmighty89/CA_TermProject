@@ -69,7 +69,6 @@ public class AESceneGraph extends AEObject{
 				sprite.getSprite().draw( positionX - centerWidthScaled, positionY - centerHeightScaled, scale);
 				//sprite.getSprite().drawSheared( transform.getPosition().x, transform.getPosition().y, transform.getScale().x, );
 			}
-
 		}
 	}
 	

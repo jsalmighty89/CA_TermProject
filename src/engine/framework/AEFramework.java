@@ -66,6 +66,11 @@ public class AEFramework extends AEObject{
 		if( currentActiveLevel != null)
 			currentActiveLevel.addToSceneRoot( object);
 	}
+	public void removeFromScene( AEGameObject object) {
+		// TODO is this right?
+		object.getParent().removeChild( object);
+		object.setParent( null);
+	}
 	
 	
 	public void update(float deltaTime, GameContainer gc) {
