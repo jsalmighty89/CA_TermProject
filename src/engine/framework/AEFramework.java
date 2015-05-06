@@ -5,11 +5,15 @@ import java.util.LinkedList;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 
+import engine.object.AECamera2D;
 import engine.object.AEGameObject;
 import engine.object.AEObject;
 import engine.render.AESceneGraph;
 
 public class AEFramework extends AEObject{
+	// window info
+	protected AEWindowInfo windowInfo;
+	
 	// level
 	protected LinkedList<AELevel> listLevel;
 	protected AELevel currentActiveLevel;
@@ -23,8 +27,14 @@ public class AEFramework extends AEObject{
 	}
 	
 	public AEFramework() {
+		windowInfo = new AEWindowInfo();
+		
 		listLevel = new LinkedList<AELevel>();
 		currentActiveLevel = null;
+	}
+	
+	public AEWindowInfo getWindowInfo() {
+		return windowInfo;
 	}
 	
 	public void addLevel( AELevel level) {
@@ -70,6 +80,16 @@ public class AEFramework extends AEObject{
 		// TODO is this right?
 		object.getParent().removeChild( object);
 		object.setParent( null);
+	}
+	// camera
+	public AECamera2D getActiveCamera() {
+		if( currentActiveLevel != null)
+			return currentActiveLevel.getActiveCamera();
+		return null;
+	}
+	public void setActiveCamera( AECamera2D camera) {
+		if( currentActiveLevel != null)
+			currentActiveLevel.setActiveCamera( camera);
 	}
 	
 	

@@ -5,31 +5,38 @@ import engine.base.AETransform;
 import engine.base.AEVector;
 import engine.framework.AEFramework;
 import engine.framework.AELevel;
-import engine.object.SpriteTest;
+import engine.object.AECamera2D;
+import engine.object.AEGameObject;
 
 
 public class TestLevel extends AELevel {
 	
-	SpriteTest testSprite;
-	SpriteTest testSpriteNPC[];
+	AEGameObject testSprite;
+	AEGameObject testSpriteNPC[];
 	
 	public TestLevel() {
-		this.objectName = "TestLevel"; 
+		this.objectName = "TestLevel";
 	}
 	
 	protected void _initLevel() {
-		testSprite = new SpriteTest( "res/images/player.png");
+		testSprite = new AEGameObject();
+		testSprite.createSprite("res/images/player.png");
+		testSprite.createCollider( 0.0f);
+		testSprite.setObjectName( "Player");
 		
 		testSprite.getTransform().setScale( 1.0f);
 		
 		AEFramework.getInstance().addToSceneRoot( testSprite);
 		
 		
-		testSpriteNPC = new SpriteTest[20];
+		testSpriteNPC = new AEGameObject[20];
 		for( int i=0; i<20; i++) {
-			SpriteTest newSprite = new SpriteTest( "res/images/player.png");
-			newSprite.getTransform().setPosition( new AEVector( AEMath.getRandomRange( 0.0f, 1280.0f), AEMath.getRandomRange( 0.0f, 720.0f)));
-			newSprite.getTransform().setRotation( AEMath.deg2rad( AEMath.getRandomRange( 0.0f, 360.0f)));
+			AEGameObject newSprite = new AEGameObject();
+			newSprite.createSprite("res/images/player.png");
+			newSprite.createCollider( 20.0f);
+			newSprite.setObjectName( "Monster");
+			newSprite.getTransform().setPosition( new AEVector( AEMath.getRandomRange( 0.0f, 640.0f), AEMath.getRandomRange( 0.0f, 720.0f)));
+			newSprite.getTransform().setRotation( AEMath.deg2rad( AEMath.getRandomRange( 0.0f, 480.0f)));
 			newSprite.getTransform().setScale( 0.5f);
 			AEFramework.getInstance().addToSceneRoot( newSprite);
 			testSpriteNPC[i] = newSprite;
@@ -53,8 +60,11 @@ public class TestLevel extends AELevel {
 		float y = input.getMouseY();
 		AEVector mousePosition = new AEVector( x, y, 0.0f);
 		
-		float dx = x - position.x;
-		float dy = y - position.y;
+		AECamera2D camera = AEFramework.getInstance().getActiveCamera();
+		AEVector mouseWorldPos = camera.getWorldFromScreen( mousePosition);
+		
+		float dx = mouseWorldPos.x - position.x;
+		float dy = mouseWorldPos.y - position.y;
 		float rad = (float)Math.atan2( dy, dx);
 		
 		
@@ -63,11 +73,13 @@ public class TestLevel extends AELevel {
 		
 		
 		if( input.isMousePressed( 0)) {
-			Projectile projectile = new Projectile("res/images/bullet.png");
+			Projectile projectile = new Projectile();
 			projectile.getTransform().setPosition( position);
 			projectile.setForward( new AEVector( dx, dy, 0.0f));
 			projectile.getTransform().setRotation( rad + AEMath.deg2rad( 180.0f));
 			AEFramework.getInstance().addToSceneRoot( projectile);
 		}
+		
+		camera.getTransform().setPosition( position);
 	}
 }

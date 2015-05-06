@@ -55,10 +55,15 @@ public class AETransform extends AERoot {
 	}
 	
 	
+	/*
 	public AEVector getScale() {
 		float sx = (float)Math.sqrt( matrix.v[0][0] * matrix.v[0][0] + matrix.v[1][0] * matrix.v[1][0]);
 		float sy = (float)Math.sqrt( matrix.v[0][1] * matrix.v[0][1] + matrix.v[1][1] * matrix.v[1][1]);		
 		return new AEVector( sx, sy);
+	}
+	*/
+	public float getScale() {
+		return (float)Math.sqrt( matrix.v[0][0] * matrix.v[0][0] + matrix.v[1][0] * matrix.v[1][0]);
 	}
 	public float getRotation() {
 		//return (float)Math.atan( matrix.v[1][0] / matrix.v[1][1]);

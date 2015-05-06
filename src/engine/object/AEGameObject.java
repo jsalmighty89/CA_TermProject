@@ -3,6 +3,7 @@ package engine.object;
 import java.util.LinkedList;
 
 import engine.base.*;
+import engine.render.AESprite;
 
 
 public class AEGameObject extends AEObject {
@@ -12,9 +13,19 @@ public class AEGameObject extends AEObject {
 	
 	protected AETransform transform;
 	
+	// collider
+	protected AECollider collider;
+	
+	// sprite
+	protected AESprite sprite;
+	protected boolean isVisible;
+	
 	public AEGameObject() {
 		transform = new AETransform();
 		childs = new LinkedList<AEGameObject>();
+		collider = null;
+		sprite = null;
+		isVisible = false;
 	}
 	
 	public AETransform getTransform() {
@@ -52,5 +63,41 @@ public class AEGameObject extends AEObject {
 	}
 	public LinkedList<AEGameObject> getChildList() {
 		return childs;
+	}
+	
+	
+	// collision
+	public boolean hasCollider() {
+		return ( this.collider != null);
+	}
+	public AECollider getCollider() {
+		return collider;
+	}
+	public void onCollide( AEGameObject collider) {
+		
+	}
+	final public void createCollider( float radius) {
+		collider = new AEColliderSphere( this, radius);
+	}
+	
+	// sprite
+	public boolean hasSprite() {
+		return( this.sprite != null);
+	}
+	public AESprite getSprite() {
+		return sprite;
+	}
+	public boolean isVisible() {
+		return isVisible;
+	}
+	public void setVisible( boolean visible) {
+		isVisible = visible;
+	}
+	public void createSprite( String fileName) {
+		createSprite( fileName, true);
+	}
+	public void createSprite( String fileName, boolean visible) {
+		sprite = new AESprite( fileName);
+		isVisible = visible;
 	}
 }

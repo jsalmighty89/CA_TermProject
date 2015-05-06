@@ -2,17 +2,18 @@ import org.newdawn.slick.GameContainer;
 
 import engine.base.AEVector;
 import engine.framework.AEFramework;
-import engine.object.SpriteTest;
+import engine.object.AEGameObject;
 
 
-public class Projectile extends SpriteTest {
+public class Projectile extends AEGameObject {
 
 	protected AEVector forward;
 	protected float lifeTime;
 	
-	public Projectile(String file) {
-		super(file);
-		// TODO Auto-generated constructor stub
+	public Projectile() {
+		this.setObjectName( "Projectile");
+		this.createSprite( "res/images/bullet.png");
+		this.createCollider( 10.0f);
 		
 		lifeTime = 2.0f;
 	}
@@ -33,5 +34,14 @@ public class Projectile extends SpriteTest {
 		position.add( AEVector.multiply( forward, 500.0f * deltaTime));
 		this.getTransform().setPosition( position);
 	}
+
+	@Override
+	public void onCollide(AEGameObject collider) {
+		super.onCollide(collider);
+		if( collider.getObjectName() == "Monster")
+			AEFramework.getInstance().removeFromScene( collider);
+	}
+	
+	
 	
 }

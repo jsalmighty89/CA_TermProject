@@ -4,12 +4,15 @@ import java.util.LinkedList;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 
 import engine.base.AEMath;
 import engine.base.AETransform;
+import engine.framework.AEFramework;
+import engine.object.AECamera2D;
+import engine.object.AECollider;
 import engine.object.AEGameObject;
 import engine.object.AEObject;
-import engine.object.SpriteTest;
 
 public class AESceneGraph extends AEObject{
 	protected AEGameObject rootObject;
@@ -17,11 +20,13 @@ public class AESceneGraph extends AEObject{
 	// internal use only
 	protected LinkedList<AEGameObject> listUpdateObject;
 	protected LinkedList<AEGameObject> listRenderObject;
+	protected LinkedList<AEGameObject> listPhysicsObject;
 	
 	public AESceneGraph() {
 		rootObject = new AEGameObject();
 		listUpdateObject = new LinkedList<AEGameObject>();
 		listRenderObject = new LinkedList<AEGameObject>();
+		listPhysicsObject = new LinkedList<AEGameObject>();
 	}
 	
 	
@@ -33,8 +38,10 @@ public class AESceneGraph extends AEObject{
 	public void updateSceneGraph() {
 		listRenderObject.clear();
 		listUpdateObject.clear();
+		listPhysicsObject.clear();
 		
 		_updateTransformTraversal( rootObject);
+		_updateCollision();
 	}
 	
 	public void update( float deltaTime, GameContainer gc) {
@@ -46,29 +53,35 @@ public class AESceneGraph extends AEObject{
 	
 	public void renderSceneGraph( Graphics graphic) {
 		
-		//_updateRenderTraversal( rootObject);
+		AECamera2D activeCam = AEFramework.getInstance().getActiveCamera();
+		AETransform transformCam = activeCam.getTransform();
+		float cameraZoom = activeCam.getZoom();
+		float cameraPosX = transformCam.getPosition().x;
+		float cameraPosY = transformCam.getPosition().y;
+		
+		float offsetX = AEFramework.getInstance().getWindowInfo().getWidth();
+		float offsetY = AEFramework.getInstance().getWindowInfo().getHeight();
+		cameraPosX -= offsetX * 0.5f;
+		cameraPosY -= offsetY * 0.5f;
 		
 		for( int i=0; i<listRenderObject.size(); i++) {
 			AEGameObject object = listRenderObject.get( i);
-			// TODO test codes :  need to be delete
+		
+			AETransform transform = object.getTransform();
+			Image image = object.getSprite().getImage();
 			
-			if( object instanceof SpriteTest) {
-				SpriteTest sprite = (SpriteTest)object;
-				AETransform transform = sprite.getTransform();
-				//graphic.drawImage( sprite.getSprite(), transform.getPosition().x, transform.getPosition().y, 0.5f);
-				float scale = transform.getScale().x;
-				float positionX = transform.getPosition().x;
-				float positionY = transform.getPosition().y;
-				float centerWidth = sprite.getSprite().getWidth() * 0.5f;
-				float centerHeight = sprite.getSprite().getWidth() * 0.5f;
-				float centerWidthScaled = centerWidth * scale;
-				float centerHeightScaled = centerHeight * scale;
-				
-				sprite.getSprite().setCenterOfRotation( centerWidthScaled, centerHeightScaled);
-				sprite.getSprite().setRotation( AEMath.rad2deg(transform.getRotation()));
-				sprite.getSprite().draw( positionX - centerWidthScaled, positionY - centerHeightScaled, scale);
-				//sprite.getSprite().drawSheared( transform.getPosition().x, transform.getPosition().y, transform.getScale().x, );
-			}
+			float scale = transform.getScale();
+			float positionX = transform.getPosition().x;
+			float positionY = transform.getPosition().y;
+			float centerWidth = image.getWidth() * 0.5f;
+			float centerHeight = image.getWidth() * 0.5f;
+			float centerWidthScaled = centerWidth * scale;
+			float centerHeightScaled = centerHeight * scale;
+			
+			image.setCenterOfRotation( centerWidthScaled, centerHeightScaled);
+			image.setRotation( AEMath.rad2deg(transform.getRotation()));
+			image.draw( positionX - centerWidthScaled - cameraPosX,
+						positionY - centerHeightScaled - cameraPosY, scale);
 		}
 	}
 	
@@ -87,24 +100,28 @@ public class AESceneGraph extends AEObject{
 				listUpdateObject.add( child);
 				
 				// if need to be rendered
-				listRenderObject.add( child);
+				if( child.hasSprite() && child.isVisible())
+					listRenderObject.add( child);
+				
+				// if need to be perform physics
+				if( child.hasCollider())
+					listPhysicsObject.add( child);
 				
 				_updateTransformTraversal( child);
 			}
 		}
 	}
 	
-	private void _updateRenderTraversal( AEGameObject parent) {
-		/*
-		listRenderObject.add( parent);
-		LinkedList<AEGameObject> listChild = parent.getChildList();
-		int count = listChild.size();
-		if( count > 0) {
-			for( int i=0; i<count; i++) {
-				AEGameObject child = listChild.get( i);
-				_updateRenderTraversal( child);
+	private void _updateCollision() {
+		for( int i=0; i<listPhysicsObject.size(); i++) {
+			AEGameObject object = listPhysicsObject.get( i);
+			for( int j=0; j<listPhysicsObject.size(); j++) {
+				AEGameObject other = listPhysicsObject.get( j);
+				if( object == other) continue;
+				AECollider colliderA = object.getCollider();
+				AECollider colliderB = other.getCollider();
+				colliderA.performCollision( colliderB);
 			}
 		}
-		*/
 	}
 }
