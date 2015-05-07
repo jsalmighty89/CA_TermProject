@@ -1,12 +1,12 @@
+package game.weapon;
+
 import org.newdawn.slick.GameContainer;
 
 import engine.base.AEVector;
 import engine.framework.AEFramework;
 import engine.object.AEGameObject;
 
-
 public class Projectile extends AEGameObject {
-
 	protected AEVector forward;
 	protected float lifeTime;
 	
@@ -40,5 +40,5 @@ public class Projectile extends AEGameObject {
 		super.onCollide(collider);
 		if( collider.getObjectName() == "Monster")
 			AEFramework.getInstance().removeFromScene( collider);
-	}	
+	}
 }

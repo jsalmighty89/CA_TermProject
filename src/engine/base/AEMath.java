@@ -11,4 +11,13 @@ public class AEMath {
 	public static float getRandomRange( float from, float to) {
 		return (float)(Math.random() * ( to - from) + from);
 	}
+	
+	public static float clamp( float value, float min, float max) {
+		float returnValue = value;
+		if( returnValue < min)
+			returnValue = min;
+		else if( returnValue > max)
+			returnValue = max;		
+		return returnValue;
+	}
 }

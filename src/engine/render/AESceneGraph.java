@@ -33,6 +33,17 @@ public class AESceneGraph extends AEObject{
 	public AEGameObject getRoot() {
 		return rootObject;
 	}
+	public AEGameObject getObject( String objectName) {		
+		// not traversing scenegraph. searching on update object list
+		for( int i=0; i<listUpdateObject.size(); i++) {
+			AEGameObject object = listUpdateObject.get( i);
+			if( object.getObjectName() != null  && object.getObjectName().equals( objectName)) {
+				return object;
+			}
+		}
+		
+		return null;
+	}
 	
 	
 	public void updateSceneGraph() {
@@ -47,7 +58,7 @@ public class AESceneGraph extends AEObject{
 	public void update( float deltaTime, GameContainer gc) {
 		for( int i=0; i<listUpdateObject.size(); i++) {
 			AEGameObject object = listUpdateObject.get( i);
-			object.update( deltaTime, null);
+			object.update( deltaTime, gc);
 		}
 	}
 	

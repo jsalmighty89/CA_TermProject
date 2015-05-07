@@ -32,6 +32,9 @@ public class AELevel extends AEObject {
 	public void addToSceneRoot( AEGameObject object) {
 		sceneGraph.getRoot().addChild( object);
 	}
+	public AEGameObject findGameObject( String objectName) {
+		return sceneGraph.getObject( objectName);
+	}
 	public void render( Graphics graphic) {
 		sceneGraph.renderSceneGraph( graphic);
 	}

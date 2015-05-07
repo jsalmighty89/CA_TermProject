@@ -81,6 +81,11 @@ public class AEFramework extends AEObject{
 		object.getParent().removeChild( object);
 		object.setParent( null);
 	}
+	public AEGameObject findGameObject( String objectName) {
+		if( currentActiveLevel != null)
+			return currentActiveLevel.findGameObject( objectName);
+		return null;
+	}
 	// camera
 	public AECamera2D getActiveCamera() {
 		if( currentActiveLevel != null)

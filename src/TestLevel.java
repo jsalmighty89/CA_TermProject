@@ -7,71 +7,41 @@ import engine.framework.AEFramework;
 import engine.framework.AELevel;
 import engine.object.AECamera2D;
 import engine.object.AEGameObject;
+import game.character.Monster;
+import game.character.Player;
 
 
 public class TestLevel extends AELevel {
 	
-	AEGameObject testSprite;
-	AEGameObject testSpriteNPC[];
+	Player player;
+	Monster monster[];
+	
 	
 	public TestLevel() {
 		this.objectName = "TestLevel";
 	}
 	
 	protected void _initLevel() {
-		testSprite = new AEGameObject();
-		testSprite.createSprite("res/images/player.png");
-		testSprite.createCollider( 0.0f);
-		testSprite.setObjectName( "Player");
 		
-		testSprite.getTransform().setScale( 1.0f);
+		player = new Player();
+		AEFramework.getInstance().addToSceneRoot( player);
 		
-		AEFramework.getInstance().addToSceneRoot( testSprite);
+		monster = new Monster[10];
+		//AEFramework.getInstance().addToSceneRoot( monster);
 		
-		
-		testSpriteNPC = new AEGameObject[20];
-		for( int i=0; i<20; i++) {
-			AEGameObject newSprite = new AEGameObject();
-			newSprite.createSprite("res/images/player.png");
-			newSprite.createCollider( 20.0f);
-			newSprite.setObjectName( "Monster");
-			newSprite.getTransform().setPosition( new AEVector( AEMath.getRandomRange( 0.0f, 640.0f), AEMath.getRandomRange( 0.0f, 720.0f)));
-			newSprite.getTransform().setRotation( AEMath.deg2rad( AEMath.getRandomRange( 0.0f, 480.0f)));
-			newSprite.getTransform().setScale( 0.5f);
-			AEFramework.getInstance().addToSceneRoot( newSprite);
-			testSpriteNPC[i] = newSprite;
+		for( int i=0; i<monster.length; i++) {
+			monster[i] = new Monster();
+			monster[i].getTransform().setPosition( new AEVector( AEMath.getRandomRange( 0.0f, 640.0f), AEMath.getRandomRange( 0.0f, 720.0f)));
+			//monster[i].getTransform().setRotation( AEMath.deg2rad( AEMath.getRandomRange( 0.0f, 480.0f)));
+			AEFramework.getInstance().addToSceneRoot( monster[i]);
 		}
 	}
 	
 	protected void _updateGame( float deltaTime, Input input) {
-		AETransform transform = testSprite.getTransform();
-		AEVector position = transform.getPosition();
-		
-		if( input.isKeyDown( Input.KEY_LEFT) || input.isKeyDown( Input.KEY_A))			
-			position.x -= 100.0f * deltaTime;
-		if( input.isKeyDown( Input.KEY_RIGHT) || input.isKeyDown( Input.KEY_D))
-			position.x += 100.0f * deltaTime;
-		if( input.isKeyDown( Input.KEY_UP) || input.isKeyDown( Input.KEY_W))
-			position.y -= 100.0f * deltaTime;
-		if( input.isKeyDown( Input.KEY_DOWN) || input.isKeyDown( Input.KEY_S))
-			position.y += 100.0f * deltaTime;
-		
-		float x = input.getMouseX();
-		float y = input.getMouseY();
-		AEVector mousePosition = new AEVector( x, y, 0.0f);
-		
 		AECamera2D camera = AEFramework.getInstance().getActiveCamera();
-		AEVector mouseWorldPos = camera.getWorldFromScreen( mousePosition);
 		
-		float dx = mouseWorldPos.x - position.x;
-		float dy = mouseWorldPos.y - position.y;
-		float rad = (float)Math.atan2( dy, dx);
-		
-		
-		transform.setPosition( position);
-		transform.setRotation( rad - AEMath.deg2rad( 90.0f));
-		
-		
+		/*
+		// fire wepaon
 		if( input.isMousePressed( 0)) {
 			Projectile projectile = new Projectile();
 			projectile.getTransform().setPosition( position);
@@ -79,7 +49,9 @@ public class TestLevel extends AELevel {
 			projectile.getTransform().setRotation( rad + AEMath.deg2rad( 180.0f));
 			AEFramework.getInstance().addToSceneRoot( projectile);
 		}
+		*/
+		AEVector cameraPos = camera.getTransform().getPosition();
 		
-		camera.getTransform().setPosition( position);
+		camera.getTransform().setPosition( AEVector.lerp( cameraPos, player.getTransform().getPosition(), 0.05f));
 	}
 }
