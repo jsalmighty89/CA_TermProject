@@ -9,9 +9,11 @@ public class AESprite extends AEObject {
 	
 	protected String fileName;
 	protected Image image;
+	protected int drawOrder;
 	
 	public AESprite() {
 		this( "defaultImage.png");
+		drawOrder = 0;
 	}
 	public AESprite( String fileName) {
 		// TODO temp implementation for load image
@@ -27,5 +29,11 @@ public class AESprite extends AEObject {
 	}
 	public Image getImage() {
 		return image;
+	}
+	public void setDrawOrder( int drawOrder) {
+		this.drawOrder = drawOrder;
+	}
+	public int getDrawOrder() {
+		return drawOrder;
 	}
 }

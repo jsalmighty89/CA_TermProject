@@ -19,14 +19,18 @@ public class AESceneGraph extends AEObject{
 	
 	// internal use only
 	protected LinkedList<AEGameObject> listUpdateObject;
-	protected LinkedList<AEGameObject> listRenderObject;
 	protected LinkedList<AEGameObject> listPhysicsObject;
+	protected LinkedList<AEGameObject>[] listRenderObjectLayer;
 	
 	public AESceneGraph() {
 		rootObject = new AEGameObject();
 		listUpdateObject = new LinkedList<AEGameObject>();
-		listRenderObject = new LinkedList<AEGameObject>();
 		listPhysicsObject = new LinkedList<AEGameObject>();
+		
+		listRenderObjectLayer = new LinkedList[10];
+		for( int i=0; i<listRenderObjectLayer.length; i++) {
+			listRenderObjectLayer[i] = new LinkedList<AEGameObject>();
+		}
 	}
 	
 	
@@ -47,9 +51,13 @@ public class AESceneGraph extends AEObject{
 	
 	
 	public void updateSceneGraph() {
-		listRenderObject.clear();
 		listUpdateObject.clear();
 		listPhysicsObject.clear();
+		
+		// clear render object layer list
+		for( int i=0; i<listRenderObjectLayer.length; i++) {
+			listRenderObjectLayer[i].clear();
+		}
 		
 		_updateTransformTraversal( rootObject);
 		_updateCollision();
@@ -75,6 +83,7 @@ public class AESceneGraph extends AEObject{
 		cameraPosX -= offsetX * 0.5f;
 		cameraPosY -= offsetY * 0.5f;
 		
+		/*
 		for( int i=0; i<listRenderObject.size(); i++) {
 			AEGameObject object = listRenderObject.get( i);
 		
@@ -94,6 +103,28 @@ public class AESceneGraph extends AEObject{
 			image.draw( positionX - centerWidthScaled - cameraPosX,
 						positionY - centerHeightScaled - cameraPosY, scale);
 		}
+		*/
+		for( int i=0; i<listRenderObjectLayer.length; i++) {
+			for( int j=0; j<listRenderObjectLayer[i].size(); j++) {
+				AEGameObject object = listRenderObjectLayer[i].get( j);
+			
+				AETransform transform = object.getTransform();
+				Image image = object.getSprite().getImage();
+				
+				float scale = transform.getScale();
+				float positionX = transform.getPosition().x;
+				float positionY = transform.getPosition().y;
+				float centerWidth = image.getWidth() * 0.5f;
+				float centerHeight = image.getWidth() * 0.5f;
+				float centerWidthScaled = centerWidth * scale;
+				float centerHeightScaled = centerHeight * scale;
+				
+				image.setCenterOfRotation( centerWidthScaled, centerHeightScaled);
+				image.setRotation( AEMath.rad2deg(transform.getRotation()));
+				image.draw( positionX - centerWidthScaled - cameraPosX,
+							positionY - centerHeightScaled - cameraPosY, scale);
+			}
+		}
 	}
 	
 	
@@ -111,8 +142,13 @@ public class AESceneGraph extends AEObject{
 				listUpdateObject.add( child);
 				
 				// if need to be rendered
-				if( child.hasSprite() && child.isVisible())
-					listRenderObject.add( child);
+				if( child.hasSprite() && child.isVisible()) {
+					//listRenderObject.add( child);
+					AESprite sprite = child.getSprite();
+					int order = sprite.getDrawOrder();
+					listRenderObjectLayer[order].add( child);
+				}
+					
 				
 				// if need to be perform physics
 				if( child.hasCollider())

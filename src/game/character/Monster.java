@@ -6,17 +6,21 @@ import org.newdawn.slick.Input;
 import engine.base.AEMath;
 import engine.base.AEVector;
 import engine.framework.AEFramework;
+import game.DrawOrder;
 
 public class Monster extends Character {
 	public Monster() {
 		setObjectName("Monster");
+		
 		createSprite("res/images/player.png");
+		getSprite().setDrawOrder( DrawOrder.CHARACTER.ordinal());
+		
 		createCollider( 40.0f);
 		isAlive = true;
 		
 		acceleratedRatio = 0.25f;
 		deacceleratedRatio = 0.1f;		
-		movementSpeed = AEMath.getRandomRange( 50.0f, 150.0f);
+		movementSpeed = AEMath.getRandomRange( 50.0f, 100.0f);
 	}
 	
 	protected void move(float deltaTime, GameContainer gc) {

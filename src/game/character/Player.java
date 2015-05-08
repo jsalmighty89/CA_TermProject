@@ -7,17 +7,21 @@ import engine.base.AEMath;
 import engine.base.AEVector;
 import engine.framework.AEFramework;
 import engine.object.AECamera2D;
+import game.DrawOrder;
 import game.weapon.Projectile;
 
 public class Player extends Character {
 	public Player() {
 		setObjectName("Player");
+		
 		createSprite("res/images/player.png");
+		getSprite().setDrawOrder( DrawOrder.CHARACTER.ordinal());
+		
 		isAlive = true;
 		
 		acceleratedRatio = 0.25f;
 		deacceleratedRatio = 0.1f;
-		movementSpeed = 300.0f;
+		movementSpeed = 150.0f;
 	}
 	
 	public void update( float deltaTime, GameContainer gc) {

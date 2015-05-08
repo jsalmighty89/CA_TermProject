@@ -7,6 +7,7 @@ import engine.framework.AEFramework;
 import engine.framework.AELevel;
 import engine.object.AECamera2D;
 import engine.object.AEGameObject;
+import game.GroundTile;
 import game.character.Monster;
 import game.character.Player;
 
@@ -15,7 +16,7 @@ public class TestLevel extends AELevel {
 	
 	Player player;
 	Monster monster[];
-	
+	GroundTile ground;
 	
 	public TestLevel() {
 		this.objectName = "TestLevel";
@@ -35,6 +36,9 @@ public class TestLevel extends AELevel {
 			//monster[i].getTransform().setRotation( AEMath.deg2rad( AEMath.getRandomRange( 0.0f, 480.0f)));
 			AEFramework.getInstance().addToSceneRoot( monster[i]);
 		}
+		
+		ground = new GroundTile();
+		AEFramework.getInstance().addToSceneRoot( ground);
 	}
 	
 	protected void _updateGame( float deltaTime, Input input) {
