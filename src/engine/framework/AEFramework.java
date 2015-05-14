@@ -78,8 +78,12 @@ public class AEFramework extends AEObject{
 	}
 	public void removeFromScene( AEGameObject object) {
 		// TODO is this right?
-		object.getParent().removeChild( object);
-		object.setParent( null);
+		if( object != null) {
+			if( object.getParent() != null) {	// temporary trouble shooting
+				object.getParent().removeChild( object);
+				object.setParent( null);
+			}
+		}
 	}
 	public AEGameObject findGameObject( String objectName) {
 		if( currentActiveLevel != null)
