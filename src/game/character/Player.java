@@ -9,8 +9,14 @@ import engine.framework.AEFramework;
 import engine.object.AECamera2D;
 import game.DrawOrder;
 import game.weapon.Projectile;
+import game.weapon.Weapon;
+import game.weapon.WeaponRifle;
 
 public class Player extends Character {
+	
+	// weapon for testing
+	Weapon testWeapon;
+	
 	public Player() {
 		setObjectName("Player");
 		
@@ -22,6 +28,10 @@ public class Player extends Character {
 		acceleratedRatio = 0.25f;
 		deacceleratedRatio = 0.1f;
 		movementSpeed = 150.0f;
+
+		// create test weapon
+		testWeapon = new WeaponRifle();
+		this.addChild( testWeapon);
 	}
 	
 	public void update( float deltaTime, GameContainer gc) {
@@ -33,6 +43,8 @@ public class Player extends Character {
 	protected void input( GameContainer gc) {
 		Input input = gc.getInput();
 		
+		
+		// mouse targeting
 		float x = input.getMouseX();
 		float y = input.getMouseY();
 		AEVector mousePosition = new AEVector( x, y, 0.0f);
@@ -48,13 +60,20 @@ public class Player extends Character {
 		
 		// rotate player
 		transform.setRotation( rad - AEMath.deg2rad( 90.0f));
+
 		
-		if( input.isMousePressed( 0)) {
-			Projectile projectile = new Projectile();
-			projectile.getTransform().setPosition( playerPos);
-			projectile.setForward( new AEVector( dx, dy, 0.0f));
-			projectile.getTransform().setRotation( rad + AEMath.deg2rad( 180.0f));
-			AEFramework.getInstance().addToSceneRoot( projectile);
+		// mouse left button down
+		if( input.isMouseButtonDown( 0)) {
+			testWeapon.onButtonFireDown();
+		}
+		// up
+		else {
+			testWeapon.onButtonFireUp();
+		}
+		
+		// reload
+		if( input.isKeyPressed( Input.KEY_R)) {
+			testWeapon.onButtonReloadDown();
 		}
 	}
 	
