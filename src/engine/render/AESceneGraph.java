@@ -66,7 +66,11 @@ public class AESceneGraph extends AEObject{
 	public void update( float deltaTime, GameContainer gc) {
 		for( int i=0; i<listUpdateObject.size(); i++) {
 			AEGameObject object = listUpdateObject.get( i);
+			// force momentum update
+			
+			// update own routine
 			object.update( deltaTime, gc);
+			object.updateForce( deltaTime);
 		}
 	}
 	

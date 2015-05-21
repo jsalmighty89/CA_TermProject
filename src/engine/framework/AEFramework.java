@@ -53,6 +53,9 @@ public class AEFramework extends AEObject{
 		
 		return null;
 	}
+	public AELevel getActiveLevel() {
+		return currentActiveLevel;
+	}
 	public void setLevel( AELevel level) {
 		if( listLevel.contains( level) == false) {
 			// critical error. not registered level.

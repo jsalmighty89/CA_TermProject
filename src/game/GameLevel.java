@@ -26,6 +26,7 @@ public class GameLevel extends AELevel {
 	protected float monsterRespawnTime = 5.0f;
 	protected float monsterRespawnTimeElapsed = 4.0f;
 	
+	protected float score;
 	
 	public GameLevel() {
 		this.objectName = "GameLevel";
@@ -46,6 +47,12 @@ public class GameLevel extends AELevel {
 		
 	}
 	
+	public void addScore( float score) {
+		this.score += score;
+		
+		System.out.println( "Score : " + (int)this.score);
+	}
+	
 	protected void _updateGame( float deltaTime, Input input) {
 		AECamera2D camera = AEFramework.getInstance().getActiveCamera();
 
@@ -57,7 +64,7 @@ public class GameLevel extends AELevel {
 		// monster respawn
 		monsterRespawnTimeElapsed += deltaTime;
 		if( monsterRespawnTimeElapsed >= monsterRespawnTime) {
-			int respawnCount = (int)AEMath.getRandomRange( 10.0f, 20.0f);
+			int respawnCount = (int)AEMath.getRandomRange( 5.0f, 10.0f);
 			for( int i=0; i<respawnCount; i++)
 				respawnMonster();
 			monsterRespawnTimeElapsed = 0.0f;

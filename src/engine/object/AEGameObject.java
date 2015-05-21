@@ -20,12 +20,19 @@ public class AEGameObject extends AEObject {
 	protected AESprite sprite;
 	protected boolean isVisible;
 	
+	// physics
+	// additional force
+	protected AEVector forceMomentum;
+	
+	
 	public AEGameObject() {
 		transform = new AETransform();
 		childs = new LinkedList<AEGameObject>();
 		collider = null;
 		sprite = null;
 		isVisible = false;
+		
+		forceMomentum = new AEVector( 0.0f, 0.0f);
 	}
 	
 	public AETransform getTransform() {
@@ -105,5 +112,30 @@ public class AEGameObject extends AEObject {
 	public void createSprite( String fileName, boolean visible) {
 		sprite = new AESprite( fileName);
 		isVisible = visible;
+	}
+	
+	// force
+	public void addForce( AEVector force) {
+		forceMomentum.add( force);
+	}
+	public void addForce( AEVector direction, float power) {
+		addForce( AEVector.multiply( direction, power));
+	}
+	public boolean forceMomentumRemain() {
+		if( forceMomentum.x == 0.0f && forceMomentum.y == 0.0f && forceMomentum.z == 0.0f)
+			return false;
+		
+		return true;
+	}
+	public void updateForce( float deltaTime) {
+		if( forceMomentumRemain()) {
+			AEVector zero = new AEVector( 0.0f, 0.0f);
+			forceMomentum = AEVector.lerp( forceMomentum, zero, deltaTime * 3.0f);
+			final float EPS = 500.0f;
+			if( forceMomentum.lengthSqrt() <= EPS) {
+				forceMomentum = zero;
+			}
+			transform.setPosition( AEVector.add( transform.getLocalPosition(), AEVector.multiply( forceMomentum, deltaTime)));
+		}
 	}
 }

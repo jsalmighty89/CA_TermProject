@@ -8,6 +8,7 @@ import engine.base.AEVector;
 import engine.framework.AEFramework;
 import engine.object.AEGameObject;
 import game.DrawOrder;
+import game.GameLevel;
 
 public class Monster extends Character {
 	public Monster() {
@@ -27,7 +28,19 @@ public class Monster extends Character {
 	public void onCollideEnter( AEGameObject other) {
 		if( other.isTypeOf( Player.class)) {
 			System.out.println( "Monster attacks Player");
+			AEVector monsterPosition = transform.getPosition();
+			AEVector playerPosition = other.getTransform().getPosition();
+			AEVector direction = AEVector.sub( playerPosition, monsterPosition);
+			direction.normalize();
+			
+			other.addForce( direction, 350.0f);
 		}
+	}
+	
+	public void onDeath() {
+		super.onDeath();
+		GameLevel level = (GameLevel)AEFramework.getInstance().getActiveLevel();
+		level.addScore( 2.0f);
 	}
 	
 	protected void move(float deltaTime, GameContainer gc) {
