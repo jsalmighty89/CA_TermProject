@@ -32,7 +32,7 @@ public class Monster extends Character {
 	
 	protected void move(float deltaTime, GameContainer gc) {
 		
-		Player player = (Player)AEFramework.getInstance().findGameObject( "Player");
+		Player player = (Player)AEFramework.getInstance().findGameObject( "Nine");
 		if( player != null) {		
 			AEVector position = this.getTransform().getPosition();			
 			AEVector playerPos = player.getTransform().getPosition();
