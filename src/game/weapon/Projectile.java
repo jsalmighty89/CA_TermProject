@@ -3,6 +3,7 @@ package game.weapon;
 import org.newdawn.slick.GameContainer;
 
 import game.character.Character;
+import game.character.Player;
 import engine.base.AEVector;
 import engine.framework.AEFramework;
 import engine.object.AEGameObject;
@@ -45,6 +46,10 @@ public class Projectile extends AEGameObject {
 	public void onCollide(AEGameObject collider) {
 		super.onCollide(collider);
 
+		
+		if( firedFrom.getOwner() == collider)
+			return;
+		
 		if( collider.isTypeOf( Character.class)) {
 			((Character)collider).onTakeDamage( firedFrom);
 		}

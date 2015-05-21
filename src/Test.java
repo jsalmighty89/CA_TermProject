@@ -1,3 +1,5 @@
+import javax.swing.JFrame;
+
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.GameContainer;
@@ -6,6 +8,7 @@ import org.newdawn.slick.SlickException;
 
 import engine.base.AEVector;
 import engine.framework.AEFramework;
+import game.GameLevel;
 
 public class Test extends BasicGame{
 	
@@ -39,9 +42,9 @@ public class Test extends BasicGame{
 		
 		framework.getWindowInfo().setSize( 640, 480);
 		
-		TestLevel level = new TestLevel();
+		GameLevel level = new GameLevel();
 		framework.addLevel( level);
-		framework.setLevel( "TestLevel");
+		framework.setLevel( "GameLevel");
 		
 		gc.setTargetFrameRate( 60);
 		gc.setVSync( true);

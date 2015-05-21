@@ -23,6 +23,8 @@ public class Player extends Character {
 		createSprite("res/images/player.png");
 		getSprite().setDrawOrder( DrawOrder.CHARACTER.ordinal());
 		
+		createCollider( 30.0f);
+		
 		isAlive = true;
 		
 		acceleratedRatio = 0.25f;
@@ -31,6 +33,7 @@ public class Player extends Character {
 
 		// create test weapon
 		testWeapon = new WeaponRifle();
+		testWeapon.setOwner( this);
 		this.addChild( testWeapon);
 	}
 	

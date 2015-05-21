@@ -6,6 +6,7 @@ import org.newdawn.slick.Input;
 import engine.base.AEMath;
 import engine.base.AEVector;
 import engine.framework.AEFramework;
+import engine.object.AEGameObject;
 import game.DrawOrder;
 
 public class Monster extends Character {
@@ -23,6 +24,12 @@ public class Monster extends Character {
 		movementSpeed = AEMath.getRandomRange( 50.0f, 100.0f);
 	}
 	
+	public void onCollideEnter( AEGameObject other) {
+		if( other.isTypeOf( Player.class)) {
+			System.out.println( "Monster attacks Player");
+		}
+	}
+	
 	protected void move(float deltaTime, GameContainer gc) {
 		
 		Player player = (Player)AEFramework.getInstance().findGameObject( "Player");
@@ -32,13 +39,11 @@ public class Monster extends Character {
 			AEVector moveDir = AEVector.sub( playerPos, position);
 			moveDir.normalize();
 			
-			// when pressed movement key
 			if( moveDir.x != 0.0f || moveDir.y != 0.0f) {
 				moveDir.normalize();
 				moveDir = AEVector.multiply( moveDir, movementSpeed);
 				currentMovement = AEVector.lerp( currentMovement, moveDir, acceleratedRatio);
 			}
-			// not pressed
 			else {
 				currentMovement = AEVector.lerp( currentMovement, moveDir, deacceleratedRatio);
 			}

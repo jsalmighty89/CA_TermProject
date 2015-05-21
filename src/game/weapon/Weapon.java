@@ -7,6 +7,8 @@ import engine.base.AEMatrix2D;
 import engine.base.AEVector;
 import engine.framework.AEFramework;
 import engine.object.AEGameObject;
+import game.character.*;
+import game.character.Character;
 
 public class Weapon extends AEGameObject {
 	protected Character owner;

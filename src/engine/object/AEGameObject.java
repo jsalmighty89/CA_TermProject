@@ -76,6 +76,12 @@ public class AEGameObject extends AEObject {
 	public void onCollide( AEGameObject collider) {
 		
 	}
+	public void onCollideEnter( AEGameObject collider) {
+		
+	}
+	public void onCollideLeave( AEGameObject collider) {
+		
+	}
 	final public void createCollider( float radius) {
 		collider = new AEColliderSphere( this, radius);
 	}
