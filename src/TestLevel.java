@@ -10,12 +10,11 @@ import engine.object.AEGameObject;
 import game.GroundTile;
 import game.character.Monster;
 import game.character.Player;
-import game.character.PlayerSHK;
 
 
 public class TestLevel extends AELevel {
 	
-	PlayerSHK player;
+	Player player;
 	Monster monster[];
 	GroundTile ground;
 	
@@ -25,7 +24,7 @@ public class TestLevel extends AELevel {
 	
 	protected void _initLevel() {
 		
-		player = new PlayerSHK();
+		player = new Player();
 		AEFramework.getInstance().addToSceneRoot( player);
 		
 		monster = new Monster[10];

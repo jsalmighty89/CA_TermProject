@@ -15,12 +15,11 @@ import game.GroundTile;
 import game.character.Monster;
 import game.character.Player;
 import game.character.PlayerKJS;
-import game.character.PlayerSHK;
 
 
 public class GameLevel extends AELevel {
 	
-	protected Player player;
+	protected PlayerKJS player;
 	protected GroundTile ground;
 	
 	protected LinkedList<Monster> listMonsterRespawned;
@@ -33,7 +32,7 @@ public class GameLevel extends AELevel {
 	}
 	
 	protected void _initLevel() {
-		player = new PlayerSHK();
+		player = new PlayerKJS();
 		AEFramework.getInstance().addToSceneRoot( player);
 		
 		listMonsterRespawned = new LinkedList<Monster>();
