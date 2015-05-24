@@ -5,21 +5,18 @@ import java.util.LinkedList;
 import org.newdawn.slick.Input;
 
 import engine.base.AEMath;
-import engine.base.AETransform;
 import engine.base.AEVector;
 import engine.framework.AEFramework;
 import engine.framework.AELevel;
 import engine.object.AECamera2D;
-import engine.object.AEGameObject;
-import game.GroundTile;
 import game.character.Monster;
 import game.character.Player;
-import game.character.PlayerKJS;
+import game.character.PlayerSHK;
 
 
 public class GameLevel extends AELevel {
 	
-	protected PlayerKJS player;
+	protected Player player;
 	protected GroundTile ground;
 	
 	protected LinkedList<Monster> listMonsterRespawned;
@@ -33,7 +30,7 @@ public class GameLevel extends AELevel {
 	}
 	
 	protected void _initLevel() {
-		player = new PlayerKJS();
+		player = new PlayerSHK();
 		AEFramework.getInstance().addToSceneRoot( player);
 		
 		listMonsterRespawned = new LinkedList<Monster>();
