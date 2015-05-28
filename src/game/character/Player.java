@@ -23,7 +23,7 @@ public class Player extends Character {
 		createSprite("res/images/player.png");
 		getSprite().setDrawOrder( DrawOrder.CHARACTER.ordinal());
 		
-		createCollider( 30.0f);
+		createCollider( 20.0f);
 		
 		isAlive = true;
 		

@@ -11,13 +11,13 @@ import engine.framework.AEFramework;
 import engine.framework.AELevel;
 import engine.object.AECamera2D;
 import engine.object.AEGameObject;
+import engine.object.AEUIObject;
 import game.GroundTile;
-import game.character.Monster;
-import game.character.Player;
-import game.character.PlayerKJS;
+import game.character.*;
 
 
 public class GameLevel extends AELevel {
+	protected UIManager uiManager;
 	
 	protected PlayerKJS player;
 	protected GroundTile ground;
@@ -28,11 +28,18 @@ public class GameLevel extends AELevel {
 	
 	protected float score;
 	
+	protected GameLogic gameLogic;
+	
 	public GameLevel() {
 		this.objectName = "GameLevel";
 	}
 	
 	protected void _initLevel() {
+		uiManager = new UIManager();
+		AEFramework.getInstance().addToSceneRoot( uiManager);
+		uiManager.setMainMessage( "GameStart");
+		
+		
 		player = new PlayerKJS();
 		AEFramework.getInstance().addToSceneRoot( player);
 		
@@ -41,6 +48,16 @@ public class GameLevel extends AELevel {
 		
 		ground = new GroundTile();
 		AEFramework.getInstance().addToSceneRoot( ground);
+		
+		/*
+		AEUIObject test = new AEUIObject();
+		test.createText( "Default", "Hello world");
+		test.getTransform().setPosition( new AEVector( 100.0f, 100.0f));
+		AEFramework.getInstance().addToUIRoot( test);
+		*/
+		
+		gameLogic = new GameLogic();
+		gameLogic.PushNextWave();
 	}
 	
 	public void onGameOver() {

@@ -8,11 +8,16 @@ import org.newdawn.slick.Graphics;
 import engine.object.AECamera2D;
 import engine.object.AEGameObject;
 import engine.object.AEObject;
+import engine.object.AEUIObject;
+import engine.render.AEFontTable;
 import engine.render.AESceneGraph;
 
 public class AEFramework extends AEObject{
 	// window info
 	protected AEWindowInfo windowInfo;
+	
+	// font table
+	protected AEFontTable fontTable;
 	
 	// level
 	protected LinkedList<AELevel> listLevel;
@@ -31,10 +36,16 @@ public class AEFramework extends AEObject{
 		
 		listLevel = new LinkedList<AELevel>();
 		currentActiveLevel = null;
+		
+		fontTable = new AEFontTable();
 	}
 	
 	public AEWindowInfo getWindowInfo() {
 		return windowInfo;
+	}
+	
+	public AEFontTable getFontTable() {
+		return fontTable;
 	}
 	
 	public void addLevel( AELevel level) {
@@ -78,6 +89,10 @@ public class AEFramework extends AEObject{
 	public void addToSceneRoot( AEGameObject object) {
 		if( currentActiveLevel != null)
 			currentActiveLevel.addToSceneRoot( object);
+	}
+	public void addToUIRoot( AEUIObject object) {
+		if( currentActiveLevel != null)
+			currentActiveLevel.addToUIRoot( object);
 	}
 	public void removeFromScene( AEGameObject object) {
 		// TODO is this right?

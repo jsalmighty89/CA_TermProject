@@ -17,7 +17,7 @@ public class Monster extends Character {
 		createSprite("res/images/player.png");
 		getSprite().setDrawOrder( DrawOrder.CHARACTER.ordinal());
 		
-		createCollider( 40.0f);
+		createCollider( 20.0f);
 		isAlive = true;
 		
 		acceleratedRatio = 0.25f;
@@ -34,6 +34,14 @@ public class Monster extends Character {
 			direction.normalize();
 			
 			other.addForce( direction, 350.0f);
+		}
+		else {
+			AEVector monsterPosition = transform.getPosition();
+			AEVector otherMonsterPosition = other.getTransform().getPosition();
+			AEVector direction = AEVector.sub( otherMonsterPosition, monsterPosition);
+			direction.normalize();
+			
+			other.addForce( direction, 100.0f);
 		}
 	}
 	

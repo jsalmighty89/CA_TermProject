@@ -8,6 +8,7 @@ import engine.base.AEVector;
 import engine.object.AECamera2D;
 import engine.object.AEGameObject;
 import engine.object.AEObject;
+import engine.object.AEUIObject;
 import engine.render.AESceneGraph;
 
 
@@ -31,6 +32,9 @@ public class AELevel extends AEObject {
 	}
 	public void addToSceneRoot( AEGameObject object) {
 		sceneGraph.getRoot().addChild( object);
+	}
+	public void addToUIRoot( AEUIObject object) {
+		sceneGraph.getUIRoot().addChild( object);
 	}
 	public AEGameObject findGameObject( String objectName) {
 		return sceneGraph.getObject( objectName);
