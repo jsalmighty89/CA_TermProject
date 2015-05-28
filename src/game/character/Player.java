@@ -12,10 +12,11 @@ import game.weapon.Projectile;
 import game.weapon.Weapon;
 import game.weapon.WeaponRifle;
 
-public class Player extends Character {
-	
-	// weapon for testing
-	Weapon testWeapon;
+public class Player extends Character {	
+	// weapon
+	protected static int weaponCount=4;
+	protected int currentWeaponIdx;
+	protected Weapon weapon[] = new Weapon[weaponCount];
 	
 	public Player() {
 		setObjectName("Player");
@@ -30,11 +31,27 @@ public class Player extends Character {
 		acceleratedRatio = 0.25f;
 		deacceleratedRatio = 0.1f;
 		movementSpeed = 150.0f;
-
-		// create test weapon
-		testWeapon = new WeaponRifle();
-		testWeapon.setOwner( this);
-		this.addChild( testWeapon);
+		
+		for( int i=0; i<weaponCount; i++) {
+			weapon[i] = new WeaponRifle();
+			weapon[i].setOwner( this);
+			this.addChild( weapon[i]);
+		}
+		
+		currentWeaponIdx = 0;
+	}
+	
+	public int getCurrentWeaponIdx() {
+		return currentWeaponIdx;
+	}
+	public Weapon getCurrentWeapon() {
+		return weapon[currentWeaponIdx];
+	}
+	public Weapon getWeapon( int idx) {
+		if( idx < 0 ||  idx >= weaponCount)
+			return null;
+		
+		return weapon[idx];
 	}
 	
 	public void update( float deltaTime, GameContainer gc) {
@@ -67,16 +84,30 @@ public class Player extends Character {
 		
 		// mouse left button down
 		if( input.isMouseButtonDown( 0)) {
-			testWeapon.onButtonFireDown();
+			weapon[currentWeaponIdx].onButtonFireDown();
 		}
 		// up
 		else {
-			testWeapon.onButtonFireUp();
+			weapon[currentWeaponIdx].onButtonFireUp();
 		}
 		
 		// reload
 		if( input.isKeyPressed( Input.KEY_R)) {
-			testWeapon.onButtonReloadDown();
+			weapon[currentWeaponIdx].onButtonReloadDown();
+		}
+		
+		// weapon change
+		if( input.isKeyPressed( Input.KEY_1)) {
+			currentWeaponIdx = 0;
+		}
+		if( input.isKeyPressed( Input.KEY_2)) {
+			currentWeaponIdx = 1;
+		}
+		if( input.isKeyPressed( Input.KEY_3)) {
+			currentWeaponIdx = 2;
+		}
+		if( input.isKeyPressed( Input.KEY_4)) {
+			currentWeaponIdx = 3;
 		}
 	}
 	

@@ -10,7 +10,8 @@ public class WaveBase extends AEGameObject {
 	LinkedList<Class> listMonster;
 	
 	public WaveBase() {
-		
+		listMonster = new LinkedList<Class>();
+		addMonster( Monster.class, 10);
 	}
 	
 	public LinkedList<Class> getMonsterList() {
@@ -18,6 +19,10 @@ public class WaveBase extends AEGameObject {
 	}
 	
 	protected void addMonster( Class monsterClass) {
-		listMonster.add( monsterClass);
+		addMonster( monsterClass, 1);
+	}
+	protected void addMonster( Class monsterClass, int count) {
+		for( int i=0; i<count; i++)
+			listMonster.add( monsterClass);
 	}
 }

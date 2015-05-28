@@ -23,6 +23,10 @@ public class Monster extends Character {
 		acceleratedRatio = 0.25f;
 		deacceleratedRatio = 0.1f;		
 		movementSpeed = AEMath.getRandomRange( 50.0f, 100.0f);
+		
+		// test
+		this.healthMax = 1.0f;
+		this.health = this.healthMax;
 	}
 	
 	public void onCollideEnter( AEGameObject other) {
@@ -47,8 +51,10 @@ public class Monster extends Character {
 	
 	public void onDeath() {
 		super.onDeath();
-		GameLevel level = (GameLevel)AEFramework.getInstance().getActiveLevel();
+		GameLevel level = GameLevel.getGameLevel();
 		level.addScore( 2.0f);
+		
+		level.getGameLogic().onMonsterDeath( this);		
 	}
 	
 	protected void move(float deltaTime, GameContainer gc) {

@@ -15,18 +15,31 @@ public class UIManager extends AEGameObject {
 	protected AEUIObject textMainMessage;
 	protected float remainMainMessage;
 	
-	protected AEUIObject textWeaponName;
+	protected AEUIObject textCurrentWave;
+	protected AEUIObject textMonsterCount;
 	
 	
 	public UIManager() {
 		windowRight = AEFramework.getInstance().getWindowInfo().getWidth();
 		windowBottom = AEFramework.getInstance().getWindowInfo().getHeight();
 		
-		textMainMessage = new AEUIObject();
-		textMainMessage.createText( "Default", "");
-		AEFramework.getInstance().addToUIRoot( textMainMessage);
+		textMainMessage = createTextObject( "Default");
 		textMainMessage.getTransform().setPosition( new AEVector( getCenterX(), getCenterY()));
 		remainMainMessage = 0.0f;
+		
+		textCurrentWave = createTextObject( "Default");
+		textCurrentWave.getTransform().setPosition( new AEVector( getCenterX(), 5.0f));
+		textMonsterCount = createTextObject( "Default");
+		textMonsterCount.getTransform().setPosition( new AEVector( getCenterX(), 35.0f));
+	}
+	public static UIManager getUIManager() {
+		return GameLevel.getGameLevel().getUIManager();
+	}
+	protected AEUIObject createTextObject( String fontType) {
+		AEUIObject object = new AEUIObject();
+		object.createText( fontType, "");
+		AEFramework.getInstance().addToUIRoot( object);
+		return object;
 	}
 
 	
@@ -52,5 +65,22 @@ public class UIManager extends AEGameObject {
 		else {
 			remainMainMessage -= deltaTime;
 		}
+		
+		GameLogic gameLogic = GameLevel.getGameLevel().getGameLogic();
+		
+		// update wave
+		String buffer = "Wave " + gameLogic.getCurrentWave();
+		textCurrentWave.getText().setText( buffer);
+		
+		// update monster
+		buffer = gameLogic.getMonsterRemain() + "/" + gameLogic.getMonsterMax();
+		textMonsterCount.getText().setText( buffer);
+		
+		// update weapon info
+		updateWeaponInfo();
+	}
+	
+	protected void updateWeaponInfo() {
+		
 	}
 }

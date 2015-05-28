@@ -19,13 +19,9 @@ import game.character.*;
 public class GameLevel extends AELevel {
 	protected UIManager uiManager;
 	
-	protected PlayerKJS player;
+	protected Player player;
 	protected GroundTile ground;
-	
-	protected LinkedList<Monster> listMonsterRespawned;
-	protected float monsterRespawnTime = 5.0f;
-	protected float monsterRespawnTimeElapsed = 4.0f;
-	
+
 	protected float score;
 	
 	protected GameLogic gameLogic;
@@ -33,35 +29,42 @@ public class GameLevel extends AELevel {
 	public GameLevel() {
 		this.objectName = "GameLevel";
 	}
+	public static GameLevel getGameLevel() {
+		// get current 'active' game level
+		return (GameLevel)AEFramework.getInstance().getActiveLevel();
+	}
 	
 	protected void _initLevel() {
+		// UIManager
 		uiManager = new UIManager();
 		AEFramework.getInstance().addToSceneRoot( uiManager);
 		uiManager.setMainMessage( "GameStart");
 		
 		
-		player = new PlayerKJS();
+		// Player
+		player = new Player();
 		AEFramework.getInstance().addToSceneRoot( player);
 		
-		listMonsterRespawned = new LinkedList<Monster>();
-		
-		
+		// Ground
 		ground = new GroundTile();
 		AEFramework.getInstance().addToSceneRoot( ground);
 		
-		/*
-		AEUIObject test = new AEUIObject();
-		test.createText( "Default", "Hello world");
-		test.getTransform().setPosition( new AEVector( 100.0f, 100.0f));
-		AEFramework.getInstance().addToUIRoot( test);
-		*/
-		
+
+		// Game Logic
 		gameLogic = new GameLogic();
-		gameLogic.PushNextWave();
+		AEFramework.getInstance().addToSceneRoot( gameLogic);
+		
+		gameLogic.onGameStart();
 	}
 	
-	public void onGameOver() {
-		
+	public Player getPlayer() {
+		return player;
+	}
+	public GameLogic getGameLogic() {
+		return gameLogic;
+	}
+	public UIManager getUIManager() {
+		return uiManager;
 	}
 	
 	public void addScore( float score) {
@@ -71,32 +74,9 @@ public class GameLevel extends AELevel {
 	}
 	
 	protected void _updateGame( float deltaTime, Input input) {
+		// camera update
 		AECamera2D camera = AEFramework.getInstance().getActiveCamera();
-
-		AEVector cameraPos = camera.getTransform().getPosition();
-		
+		AEVector cameraPos = camera.getTransform().getPosition();		
 		camera.getTransform().setPosition( AEVector.lerp( cameraPos, player.getTransform().getPosition(), 0.05f));
-		
-		
-		// monster respawn
-		monsterRespawnTimeElapsed += deltaTime;
-		if( monsterRespawnTimeElapsed >= monsterRespawnTime) {
-			int respawnCount = (int)AEMath.getRandomRange( 5.0f, 10.0f);
-			for( int i=0; i<respawnCount; i++)
-				respawnMonster();
-			monsterRespawnTimeElapsed = 0.0f;
-		}
-	}
-	
-	protected void respawnMonster() {
-		float rad = AEMath.getRandomRange( 0.0f, 6.28f);
-		float distance = AEMath.getRandomRange( 300.0f, 500.0f);
-		AEVector respawnPosition = new AEVector( (float)Math.sin( rad)*distance, (float)Math.cos( rad)*distance);
-		
-		Monster monster = new Monster();
-		monster.getTransform().setPosition( respawnPosition);
-		AEFramework.getInstance().addToSceneRoot( monster);
-		
-		listMonsterRespawned.add( monster);
 	}
 }
