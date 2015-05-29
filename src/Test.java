@@ -4,6 +4,7 @@ import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
 import engine.base.AEVector;
@@ -55,6 +56,10 @@ public class Test extends BasicGame{
 		float deltaTime = dt * 0.001f;
 		
 		framework.update( deltaTime, gc);
+		
+		// Terminate app
+		if (gc.getInput().isKeyDown(Input.KEY_ESCAPE))
+			System.exit(0);
 	}
 
 }
