@@ -8,6 +8,7 @@ import engine.base.AEVector;
 import engine.framework.AEFramework;
 import engine.object.AECamera2D;
 import game.DrawOrder;
+import game.GameLevel;
 import game.weapon.Projectile;
 import game.weapon.Weapon;
 import game.weapon.WeaponRifle;
@@ -57,7 +58,13 @@ public class Player extends Character {
 	public void update( float deltaTime, GameContainer gc) {
 		super.update(deltaTime, gc);
 		
-		input( gc);
+		if( isAlive)
+			input( gc);
+	}
+	
+	public void onDeath() {
+		super.onDeath();
+		GameLevel.getGameLevel().getGameLogic().onGameOver();
 	}
 	
 	protected void input( GameContainer gc) {

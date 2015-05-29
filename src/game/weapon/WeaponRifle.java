@@ -15,7 +15,7 @@ public class WeaponRifle extends Weapon {
 		ammoMax = 10;
 		ammo = ammoMax;
 		
-		chargeTime = 0.05f;
+		chargeTime = 0.25f;
 	}
 	
 	

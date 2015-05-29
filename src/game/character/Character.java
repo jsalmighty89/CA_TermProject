@@ -5,6 +5,7 @@ import org.newdawn.slick.GameContainer;
 import engine.base.AEVector;
 import engine.framework.AEFramework;
 import engine.object.AEGameObject;
+import game.GameLevel;
 import game.weapon.Weapon;
 
 public class Character extends AEGameObject {
@@ -33,6 +34,12 @@ public class Character extends AEGameObject {
 		health = healthMax;
 	}
 	
+	public boolean isAlive() {
+		return isAlive;
+	}
+	public float getHealth() {
+		return health;
+	}
 	public void addHealth( float health) {
 		health = Math.min( healthMax, this.health + health);		
 	}
@@ -49,7 +56,6 @@ public class Character extends AEGameObject {
 	
 	public void onDeath() {
 		isAlive = false;
-		AEFramework.getInstance().removeFromScene( this);
 	}
 	
 	public void update(float deltaTime, GameContainer gc) {

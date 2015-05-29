@@ -6,6 +6,7 @@ import engine.base.AEVector;
 import engine.framework.AEFramework;
 import engine.object.AEGameObject;
 import engine.object.AEUIObject;
+import game.character.Player;
 
 public class UIManager extends AEGameObject {
 	
@@ -18,6 +19,7 @@ public class UIManager extends AEGameObject {
 	protected AEUIObject textCurrentWave;
 	protected AEUIObject textMonsterCount;
 	
+	protected AEUIObject textPlayerHP;
 	
 	public UIManager() {
 		windowRight = AEFramework.getInstance().getWindowInfo().getWidth();
@@ -31,6 +33,9 @@ public class UIManager extends AEGameObject {
 		textCurrentWave.getTransform().setPosition( new AEVector( getCenterX(), 5.0f));
 		textMonsterCount = createTextObject( "Default");
 		textMonsterCount.getTransform().setPosition( new AEVector( getCenterX(), 35.0f));
+		
+		textPlayerHP = createTextObject( "Default");
+		textPlayerHP.getTransform().setPosition( new AEVector( 60.0f, windowBottom - 40.0f));
 	}
 	public static UIManager getUIManager() {
 		return GameLevel.getGameLevel().getUIManager();
@@ -71,6 +76,13 @@ public class UIManager extends AEGameObject {
 		// update wave
 		String buffer = "Wave " + gameLogic.getCurrentWave();
 		textCurrentWave.getText().setText( buffer);
+		
+		// update hp
+		Player player = GameLevel.getGameLevel().getPlayer();
+		if( player != null) {
+			float hp = player.getHealth();
+			textPlayerHP.getText().setText( "HP:" + (int)hp);
+		}
 		
 		// update monster
 		buffer = gameLogic.getMonsterRemain() + "/" + gameLogic.getMonsterMax();

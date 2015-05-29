@@ -38,6 +38,9 @@ public class Monster extends Character {
 			direction.normalize();
 			
 			other.addForce( direction, 350.0f);
+			
+			Player player = (Player)other;
+			player.decreaseHealth( 5.0f);
 		}
 		else {
 			AEVector monsterPosition = transform.getPosition();
@@ -54,13 +57,15 @@ public class Monster extends Character {
 		GameLevel level = GameLevel.getGameLevel();
 		level.addScore( 2.0f);
 		
-		level.getGameLogic().onMonsterDeath( this);		
+		level.getGameLogic().onMonsterDeath( this);
+		
+		AEFramework.getInstance().removeFromScene( this);
 	}
 	
 	protected void move(float deltaTime, GameContainer gc) {
 		
 		Player player = (Player)AEFramework.getInstance().findGameObject( "Player");
-		if( player != null) {		
+		if( player != null && player.isAlive()) {		
 			AEVector position = this.getTransform().getPosition();			
 			AEVector playerPos = player.getTransform().getPosition();
 			AEVector moveDir = AEVector.sub( playerPos, position);
