@@ -93,8 +93,21 @@ public class GameLogic extends AEGameObject {
 	}
 	
 	public void update(float deltaTime, GameContainer gc) {
+		// update monster wave respawn
 		if( listMonsterRespawn.size() > 0) {
 			updateRespawn( deltaTime);
+		}
+		
+		// make sure player in stage radius
+		GameLevel level = GameLevel.getGameLevel();
+		Player player = level.getPlayer();
+		float radius = level.getStageRadius();
+		AEVector playerPosition = player.getTransform().getPosition();
+		float distFromZero = playerPosition.length();
+		if( distFromZero >= radius) {
+			playerPosition.normalize();			
+			// reverse position vector
+			player.addForce( AEVector.sub( new AEVector(), playerPosition), 500.0f);
 		}
 	}
 	public void updateRespawn( float deltaTime) {

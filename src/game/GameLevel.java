@@ -22,6 +22,10 @@ public class GameLevel extends AELevel {
 	protected Player player;
 	protected GroundTile ground;
 
+	// game play stage radius
+	protected float stageRadius = 750.0f;
+	
+	// temp score
 	protected float score;
 	
 	protected GameLogic gameLogic;
@@ -65,6 +69,13 @@ public class GameLevel extends AELevel {
 		ground = new GroundTile();
 		AEFramework.getInstance().addToSceneRoot( ground);
 		
+		// border line
+		AEGameObject border = new AEGameObject();
+		border.setObjectName( "Border");
+		border.createSprite( "res/images/border.png");
+		border.getSprite().setDrawOrder( DrawOrder.GROUND.ordinal());
+		border.getTransform().setScale( stageRadius/(256.0f-15.0f));	// 256 is half-size of sprite 
+		AEFramework.getInstance().addToSceneRoot( border);
 
 		// Game Logic
 		gameLogic = new GameLogic();
@@ -84,9 +95,16 @@ public class GameLevel extends AELevel {
 	}
 	
 	public void addScore( float score) {
-		this.score += score;
-		
+		this.score += score;		
 		System.out.println( "Score : " + (int)this.score);
+	}
+	
+	public float getStageRadius() { 
+		return stageRadius;
+	}
+	public AEVector getStagePositionRandom() {
+		float rad = AEMath.getRandomRange( 0.0f, 6.28f);
+		return new AEVector( (float)Math.sin(rad) * stageRadius, (float)Math.cos(rad) * stageRadius);
 	}
 	
 	protected void _updateGame( float deltaTime, Input input) {

@@ -11,6 +11,7 @@ public class GroundTile extends AEGameObject {
 	protected AEGameObject[] objectTile;
 	
 	public GroundTile() {
+		// create tiles
 		int tileWidth = 5;
 		int tileHeight = 5;
 		int tileImageWidth = 0;
@@ -28,9 +29,9 @@ public class GroundTile extends AEGameObject {
 				
 				this.addChild( tile);
 			}
-		}
-		
-		AEVector offset = new AEVector( -(tileImageWidth*tileWidth)*0.5f, -(tileImageHeight*tileHeight)*0.5f);
+		}		
+		AEVector offset = new AEVector( -(tileImageWidth*tileWidth)*0.5f + tileImageWidth*0.5f,
+										-(tileImageHeight*tileHeight)*0.5f + tileImageHeight*0.5f);
 		this.getTransform().setPosition( offset);
 	}
 }

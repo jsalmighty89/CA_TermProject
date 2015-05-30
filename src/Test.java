@@ -25,7 +25,7 @@ public class Test extends BasicGame{
 		
 		AppGameContainer app = new AppGameContainer( new Test("TestWindow"));
 		
-		app.setDisplayMode( 640, 480, false);
+		app.setDisplayMode( 1280, 720, false);
 		app.start();
 		
 	}
@@ -41,7 +41,7 @@ public class Test extends BasicGame{
 
 		framework = AEFramework.getInstance();
 		
-		framework.getWindowInfo().setSize( 640, 480);
+		framework.getWindowInfo().setSize( 1280, 720);
 		
 		GameLevel level = new GameLevel();
 		framework.addLevel( level);
