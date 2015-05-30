@@ -45,7 +45,8 @@ public class GameLogic extends AEGameObject {
 		onWaveBegin();
 	}
 	public void onGameOver() {
-		UIManager.getUIManager().setMainMessage( "Game Over!!");
+		UIManager.getUIManager().setMainMessage( "Game Over!");
+		AEFramework.getInstance().setUpdateTimeRatio( 0.25f);
 	}
 	public void onWaveBegin() {
 		currentWave++;

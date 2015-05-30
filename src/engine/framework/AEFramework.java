@@ -22,6 +22,9 @@ public class AEFramework extends AEObject{
 	// level
 	protected LinkedList<AELevel> listLevel;
 	protected AELevel currentActiveLevel;
+	
+	// update
+	protected float updateTimeRatio;
 
 	// singleton instance
 	private static AEFramework _instance = null;
@@ -38,6 +41,8 @@ public class AEFramework extends AEObject{
 		currentActiveLevel = null;
 		
 		fontTable = new AEFontTable();
+		
+		updateTimeRatio = 1.0f;
 	}
 	
 	public AEWindowInfo getWindowInfo() {
@@ -117,6 +122,13 @@ public class AEFramework extends AEObject{
 	public void setActiveCamera( AECamera2D camera) {
 		if( currentActiveLevel != null)
 			currentActiveLevel.setActiveCamera( camera);
+	}
+	
+	public void setUpdateTimeRatio( float ratio) {
+		updateTimeRatio = ratio;
+	}
+	public float getUpdateTimeRatio() {
+		return updateTimeRatio;
 	}
 	
 	

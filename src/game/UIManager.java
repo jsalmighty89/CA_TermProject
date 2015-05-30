@@ -7,6 +7,7 @@ import engine.framework.AEFramework;
 import engine.object.AEGameObject;
 import engine.object.AEUIObject;
 import game.character.Player;
+import game.weapon.*;
 
 public class UIManager extends AEGameObject {
 	
@@ -20,6 +21,11 @@ public class UIManager extends AEGameObject {
 	protected AEUIObject textMonsterCount;
 	
 	protected AEUIObject textPlayerHP;
+	
+	//weapon
+	protected AEUIObject textWeaponName;
+	protected AEUIObject textWeaponAmmo;
+	protected AEUIObject textWeaponSelector;
 	
 	public UIManager() {
 		windowRight = AEFramework.getInstance().getWindowInfo().getWidth();
@@ -36,6 +42,15 @@ public class UIManager extends AEGameObject {
 		
 		textPlayerHP = createTextObject( "Default");
 		textPlayerHP.getTransform().setPosition( new AEVector( 60.0f, windowBottom - 40.0f));
+		
+		textWeaponName = createTextObject( "Default");
+		textWeaponName.getTransform().setPosition( new AEVector( windowRight - 150.0f, windowBottom - 80.0f));
+		
+		textWeaponAmmo = createTextObject( "Default");
+		textWeaponAmmo.getTransform().setPosition( new AEVector( windowRight - 150.0f, windowBottom - 40.0f));
+		
+		textWeaponSelector = createTextObject( "Default");
+		textWeaponSelector.getTransform().setPosition( new AEVector( windowRight - 150.0f, windowBottom - 120.0f));
 	}
 	public static UIManager getUIManager() {
 		return GameLevel.getGameLevel().getUIManager();
@@ -93,6 +108,32 @@ public class UIManager extends AEGameObject {
 	}
 	
 	protected void updateWeaponInfo() {
+		Player player = GameLevel.getGameLevel().getPlayer();
+		if( player == null) return;
 		
+		Weapon weapon = player.getCurrentWeapon();
+		
+		// name
+		textWeaponName.getText().setText( weapon.getObjectName());
+		
+		// ammo
+		if( weapon.isTypeOf( WeaponRifle.class)) {
+			WeaponRifle rifle = (WeaponRifle)weapon;
+			textWeaponAmmo.getText().setText( rifle.getAmmo() + "/" + rifle.getAmmoMax());
+		}
+		else if( weapon.isTypeOf( WeaponMelee.class)) {
+			textWeaponAmmo.getText().setText( "-");
+		}
+		
+		// weapon selector
+		int currentWeaponIdx = player.getCurrentWeaponIdx();
+		String buffer = "";
+		for( int i=0; i<4; i++) {
+			if( currentWeaponIdx == i)
+				buffer += String.format( "[%d]", i+1);
+			else
+				buffer += String.format( " %d ", i+1);
+		}
+		textWeaponSelector.getText().setText( buffer);
 	}
 }

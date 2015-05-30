@@ -10,8 +10,7 @@ import engine.object.AECamera2D;
 import game.DrawOrder;
 import game.GameLevel;
 import game.weapon.Projectile;
-import game.weapon.Weapon;
-import game.weapon.WeaponRifle;
+import game.weapon.*;
 
 public class Player extends Character {	
 	// weapon
@@ -33,11 +32,11 @@ public class Player extends Character {
 		deacceleratedRatio = 0.1f;
 		movementSpeed = 150.0f;
 		
-		for( int i=0; i<weaponCount; i++) {
-			weapon[i] = new WeaponRifle();
-			weapon[i].setOwner( this);
-			this.addChild( weapon[i]);
-		}
+		setWeapon( new WeaponRifleAK47(), 0);
+		setWeapon( new WeaponMelee(), 1);
+		setWeapon( new WeaponRifle(), 2);
+		setWeapon( new WeaponRifle(), 3);
+		
 		
 		currentWeaponIdx = 0;
 	}
@@ -53,6 +52,18 @@ public class Player extends Character {
 			return null;
 		
 		return weapon[idx];
+	}
+	
+	public void setWeapon( Weapon weapon, int slot) {
+		weapon.setOwner( this);
+		this.addChild( weapon);
+		this.weapon[slot] = weapon;
+	}
+	public void changeWeapon( int slot) {
+		if( currentWeaponIdx != slot) {
+			weapon[currentWeaponIdx].onButtonFireUp();
+			currentWeaponIdx = slot;
+		}
 	}
 	
 	public void update( float deltaTime, GameContainer gc) {
@@ -105,16 +116,16 @@ public class Player extends Character {
 		
 		// weapon change
 		if( input.isKeyPressed( Input.KEY_1)) {
-			currentWeaponIdx = 0;
+			changeWeapon( 0);
 		}
 		if( input.isKeyPressed( Input.KEY_2)) {
-			currentWeaponIdx = 1;
+			changeWeapon( 1);
 		}
 		if( input.isKeyPressed( Input.KEY_3)) {
-			currentWeaponIdx = 2;
+			changeWeapon( 2);
 		}
 		if( input.isKeyPressed( Input.KEY_4)) {
-			currentWeaponIdx = 3;
+			changeWeapon( 3);
 		}
 	}
 	

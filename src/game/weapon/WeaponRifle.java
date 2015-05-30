@@ -12,13 +12,19 @@ public class WeaponRifle extends Weapon {
 	// chargeTime : fire rate
 	
 	public WeaponRifle() {
+		setObjectName( "Default Rifle");
 		ammoMax = 10;
 		ammo = ammoMax;
 		
 		chargeTime = 0.25f;
 	}
 	
-	
+	public int getAmmo() {
+		return ammo;
+	}
+	public int getAmmoMax() {
+		return ammoMax;
+	}
 	
 	public void onFire() {
 		if( ammo <= 0) {

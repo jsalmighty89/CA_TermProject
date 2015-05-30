@@ -92,8 +92,9 @@ public class AESceneGraph extends AEObject{
 			// force momentum update
 			
 			// update own routine
-			object.update( deltaTime, gc);
-			object.updateForce( deltaTime);
+			float updateTimeRatio = AEFramework.getInstance().getUpdateTimeRatio();			
+			object.update( deltaTime * updateTimeRatio, gc);
+			object.updateForce( deltaTime * updateTimeRatio);
 		}
 	}
 	
