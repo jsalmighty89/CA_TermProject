@@ -8,8 +8,8 @@ import engine.base.AEVector;
 import engine.framework.AEFramework;
 import engine.object.AECamera2D;
 import game.DrawOrder;
+import game.GameDataManager;
 import game.GameLevel;
-import game.weapon.Projectile;
 import game.weapon.*;
 
 public class Player extends Character {	
@@ -31,12 +31,6 @@ public class Player extends Character {
 		acceleratedRatio = 0.25f;
 		deacceleratedRatio = 0.1f;
 		movementSpeed = 150.0f;
-		
-		setWeapon( new WeaponRifleAK47(), 0);
-		setWeapon( new WeaponMelee(), 1);
-		setWeapon( new WeaponRifle(), 2);
-		setWeapon( new WeaponRifle(), 3);
-		
 		
 		currentWeaponIdx = 0;
 	}

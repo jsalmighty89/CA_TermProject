@@ -40,10 +40,26 @@ public class GameLevel extends AELevel {
 		AEFramework.getInstance().addToSceneRoot( uiManager);
 		uiManager.setMainMessage( "GameStart");
 		
+		GameDataManager gdManager = GameDataManager.getInstance();
 		
 		// Player
-		player = new Player();
+		int selectedPlayerIdx = gdManager.getSelectedPlayerIdx();
+		if( selectedPlayerIdx == -1) {
+			System.out.println( "[WARN] NO PLAYER SELECTED!");
+			selectedPlayerIdx = 0;
+		}
+		player = gdManager.getPlayer( selectedPlayerIdx);
 		AEFramework.getInstance().addToSceneRoot( player);
+		
+		// Weapon Setting
+		// temp select
+		gdManager.setSelectedWeaponIdx( 0, 1);
+		// bind weapon
+		player.setWeapon( gdManager.getSelectedWeapon( 0), 0);
+		player.setWeapon( gdManager.getSelectedWeapon( 1), 1);
+		player.setWeapon( gdManager.getSelectedWeapon( 2), 2);
+		player.setWeapon( gdManager.getSelectedWeapon( 3), 3);
+		
 		
 		// Ground
 		ground = new GroundTile();
