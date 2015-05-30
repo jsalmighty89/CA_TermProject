@@ -4,6 +4,7 @@ import org.newdawn.slick.GameContainer;
 
 import game.character.Character;
 import game.character.Player;
+import engine.base.AEMath;
 import engine.base.AEVector;
 import engine.framework.AEFramework;
 import engine.object.AEGameObject;
@@ -13,15 +14,17 @@ public class Projectile extends AEGameObject {
 	
 	protected AEVector forward;
 	protected float lifeTime;
+	protected float bulletSpeed;
 	
 	public Projectile( Weapon firedFrom) {
 		this.firedFrom = firedFrom;
 		
 		this.setObjectName( "Projectile");
 		this.createSprite( "res/images/bullet.png");
-		this.createCollider( 10.0f);
+		this.createCollider( 3.0f);
 		
 		lifeTime = 2.0f;
+		bulletSpeed = AEMath.getRandomRange( 500.0f, 600.0f);
 	}
 	
 	
@@ -38,7 +41,7 @@ public class Projectile extends AEGameObject {
 		}
 		
 		AEVector position = this.getTransform().getPosition();
-		position.add( AEVector.multiply( forward, 500.0f * deltaTime));
+		position.add( AEVector.multiply( forward, bulletSpeed * deltaTime));
 		this.getTransform().setPosition( position);
 	}
 
@@ -52,8 +55,7 @@ public class Projectile extends AEGameObject {
 		
 		if( collider.isTypeOf( Character.class)) {
 			((Character)collider).onTakeDamage( firedFrom);
+			AEFramework.getInstance().removeFromScene( this);
 		}
-		
-		AEFramework.getInstance().removeFromScene( this);
 	}
 }

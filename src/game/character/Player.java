@@ -7,6 +7,7 @@ import engine.base.AEMath;
 import engine.base.AEVector;
 import engine.framework.AEFramework;
 import engine.object.AECamera2D;
+import engine.object.AEGameObject;
 import game.DrawOrder;
 import game.GameDataManager;
 import game.GameLevel;
@@ -17,6 +18,9 @@ public class Player extends Character {
 	protected static int weaponCount=4;
 	protected int currentWeaponIdx;
 	protected Weapon weapon[] = new Weapon[weaponCount];
+	
+	protected AEGameObject laserSight;
+	protected float laserSightBlink;
 	
 	public Player() {
 		setObjectName("Player");
@@ -33,6 +37,13 @@ public class Player extends Character {
 		movementSpeed = 150.0f;
 		
 		currentWeaponIdx = 0;
+		
+		laserSight = new AEGameObject();
+		laserSight.setObjectName( "LaserSight");
+		laserSight.createSprite( "res/images/laser.png");
+		laserSight.getSprite().setDrawOrder( DrawOrder.CHARACTER.ordinal());
+		laserSight.getTransform().setPosition( new AEVector( 0.0f, 40.0f));
+		this.addChild( laserSight);
 	}
 	
 	public int getCurrentWeaponIdx() {
@@ -65,6 +76,12 @@ public class Player extends Character {
 		
 		if( isAlive)
 			input( gc);
+		
+		laserSightBlink -= deltaTime;
+		if( laserSightBlink <= 0.0f) {
+			laserSight.setVisible( !laserSight.isVisible());
+			laserSightBlink = AEMath.getRandomRange( 0.0f, 0.1f);
+		}
 	}
 	
 	public void onDeath() {

@@ -45,7 +45,7 @@ public class WeaponRifle extends Weapon {
 			Projectile projectile = new Projectile( this);
 			projectile.getTransform().setPosition( position);
 			projectile.setForward( faceDirection);
-			projectile.getTransform().setRotation( faceRad - AEMath.deg2rad( 90.0f));
+			projectile.getTransform().setRotation( faceRad - AEMath.deg2rad( 0.0f));
 			AEFramework.getInstance().addToSceneRoot( projectile);
 			
 			ammo--;

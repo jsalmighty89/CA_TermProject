@@ -105,7 +105,7 @@ public class GameLogic extends AEGameObject {
 		AEVector playerPosition = player.getTransform().getPosition();
 		float distFromZero = playerPosition.length();
 		if( distFromZero >= radius) {
-			playerPosition.normalize();			
+			playerPosition.normalize();
 			// reverse position vector
 			player.addForce( AEVector.sub( new AEVector(), playerPosition), 500.0f);
 		}
