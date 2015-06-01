@@ -32,9 +32,10 @@ public class GameDataManager {
 		selectedPlayerIdx = -1;
 		
 		listWeapon = new LinkedList<Weapon>();
-		listWeapon.add( new WeaponRifle());
+		listWeapon.add( new WeaponRifle()); // rifle test
 		listWeapon.add( new WeaponRifleAK47());
 		listWeapon.add( new WeaponMelee()); // melee test
+		listWeapon.add( new WeaponGrenade()); // grenade test
 
 		for( int i=0; i<selectedWeaponIdx.length; i++) {
 			selectedWeaponIdx[i] = -1;

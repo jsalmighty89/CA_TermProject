@@ -22,6 +22,8 @@ public class Player extends Character {
 	protected AEGameObject laserSight;
 	protected float laserSightBlink;
 	
+	protected AEVector mouseWorldPos;
+	
 	public Player() {
 		setObjectName("Player");
 		
@@ -93,6 +95,10 @@ public class Player extends Character {
 		GameLevel.getGameLevel().getGameLogic().onGameOver();
 	}
 	
+	public AEVector getMouseTargetPosition() {
+		return mouseWorldPos;
+	}
+	
 	protected void input( GameContainer gc) {
 		Input input = gc.getInput();
 		
@@ -103,7 +109,7 @@ public class Player extends Character {
 		AEVector mousePosition = new AEVector( x, y, 0.0f);
 		
 		AECamera2D camera = AEFramework.getInstance().getActiveCamera();
-		AEVector mouseWorldPos = camera.getWorldFromScreen( mousePosition);
+		mouseWorldPos = camera.getWorldFromScreen( mousePosition);
 		
 		AEVector playerPos = this.getTransform().getPosition();
 		

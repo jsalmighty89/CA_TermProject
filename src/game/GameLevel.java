@@ -65,6 +65,7 @@ public class GameLevel extends AELevel {
 		// temp select
 		gdManager.setSelectedWeaponIdx( 0, 1);
 		gdManager.setSelectedWeaponIdx( 1, 2);
+		gdManager.setSelectedWeaponIdx( 2, 3);
 		// bind weapon
 		player.setWeapon( gdManager.getSelectedWeapon( 0), 0);
 		player.setWeapon( gdManager.getSelectedWeapon( 1), 1);
