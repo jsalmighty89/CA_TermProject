@@ -78,6 +78,10 @@ public class AEVector extends AERoot {
 		z = z / length;
 	}
 	
+	public static float dot( AEVector u, AEVector v) {
+		return u.x * v.x + u.y * v.y + u.z * v.z;
+	}
+	
 	public static AEVector lerp( AEVector from, AEVector to, float t) {
 		AEVector returnVector = new AEVector();
 		float ratio = AEMath.clamp( t, 0.0f, 1.0f);

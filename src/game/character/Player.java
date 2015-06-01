@@ -46,6 +46,10 @@ public class Player extends Character {
 		this.addChild( laserSight);
 	}
 	
+	public static String getDescription() {
+		return "설명이 작성되지 않은 캐릭터입니다.";
+	}
+	
 	public int getCurrentWeaponIdx() {
 		return currentWeaponIdx;
 	}
