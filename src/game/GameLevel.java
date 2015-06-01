@@ -19,7 +19,13 @@ import game.character.*;
 public class GameLevel extends AELevel {
 	protected UIManager uiManager;
 	
+	// Player
 	protected Player player;
+	
+	// Respawned Monster List
+	protected LinkedList<Monster> listMonsterRespawned;
+	
+	// Ground Tile
 	protected GroundTile ground;
 
 	// game play stage radius
@@ -58,12 +64,15 @@ public class GameLevel extends AELevel {
 		// Weapon Setting
 		// temp select
 		gdManager.setSelectedWeaponIdx( 0, 1);
+		gdManager.setSelectedWeaponIdx( 1, 2);
 		// bind weapon
 		player.setWeapon( gdManager.getSelectedWeapon( 0), 0);
 		player.setWeapon( gdManager.getSelectedWeapon( 1), 1);
 		player.setWeapon( gdManager.getSelectedWeapon( 2), 2);
 		player.setWeapon( gdManager.getSelectedWeapon( 3), 3);
 		
+		// Respawned Monster List
+		listMonsterRespawned = new LinkedList<Monster>();
 		
 		// Ground
 		ground = new GroundTile();
@@ -92,6 +101,35 @@ public class GameLevel extends AELevel {
 	}
 	public UIManager getUIManager() {
 		return uiManager;
+	}
+	
+	public LinkedList<Monster> getMonsterRespawned() {
+		return listMonsterRespawned;
+	}
+	public void addMonsterRespawned( Monster monster) {
+		if( listMonsterRespawned.contains( monster) == false)
+			listMonsterRespawned.add( monster);
+	}
+	public void removeMonsterRespawned( Monster monster) {
+		if( listMonsterRespawned.contains( monster))
+			listMonsterRespawned.remove( monster);
+	}
+	public void flushMonsterRespawned() {
+		listMonsterRespawned.clear();
+	}
+	public LinkedList<Monster> getMonsterAround( AEVector position, float range) {
+		LinkedList<Monster> listMonster = new LinkedList<Monster>();
+		
+		float range2 = range * range;
+		
+		for( Monster monster : listMonsterRespawned) {
+			AEVector monsterPosition = monster.getTransform().getPosition();
+			AEVector sub = AEVector.sub( position, monsterPosition);
+			if( sub.lengthSqrt() <= range2)
+				listMonster.add( monster);
+		}
+		
+		return listMonster;
 	}
 	
 	public void addScore( float score) {

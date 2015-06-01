@@ -33,16 +33,12 @@ public class WeaponRifle extends Weapon {
 		else {
 			// get face direction using current transform's rotation matrix
 			AEVector position = transform.getPosition();
-			float faceRad = transform.getRotation() + AEMath.getRandomRange( -0.1f, 0.1f); // weapon's recoil
-			
-			AEMatrix2D matTranslation = AEMatrix2D.createTranslateMatrix( 0.0f, 1.0f); // default forward is (0.0f, 1.0f)
-			AEMatrix2D matRotation = AEMatrix2D.createRotationMatrix( faceRad);
-			matTranslation = AEMatrix2D.multiply( matRotation, matTranslation);
-			
-			AEVector faceDirection = new AEVector( matTranslation.v[0][2], matTranslation.v[1][2]);
+			float recoil = AEMath.getRandomRange( -0.1f, 0.1f);
+			float faceRad = transform.getRotation() + recoil;
+			AEVector faceDirection = getTransform().getForward( AEMath.deg2rad( 90.0f) + recoil);
 
 			// create projectile
-			Projectile projectile = new Projectile( this);
+			Projectile projectile = new ProjectileRifleBullet( this);
 			projectile.getTransform().setPosition( position);
 			projectile.setForward( faceDirection);
 			projectile.getTransform().setRotation( faceRad - AEMath.deg2rad( 0.0f));

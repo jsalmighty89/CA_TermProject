@@ -74,6 +74,19 @@ public class AETransform extends AERoot {
 	}
 	
 	
+	public AEVector getForward() {
+		return getForward( 0.0f);
+	}
+	public AEVector getForward( float radOffset) {
+		AEVector forward = new AEVector();
+		
+		float rad = getRotation() + radOffset;
+		forward.x = (float)Math.cos( rad);
+		forward.y = (float)Math.sin( rad);
+		
+		return forward;
+	}
+	
 	public void updateMatrix() {
 		AEMatrix2D matrixScale = AEMatrix2D.createScaleMatrix( scale.x, scale.y);
 		AEMatrix2D matrixRotation = AEMatrix2D.createRotationMatrix( rotation);

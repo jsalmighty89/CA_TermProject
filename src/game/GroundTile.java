@@ -12,8 +12,8 @@ public class GroundTile extends AEGameObject {
 	
 	public GroundTile() {
 		// create tiles
-		int tileWidth = 5;
-		int tileHeight = 5;
+		int tileWidth = 8;
+		int tileHeight = 8;
 		int tileImageWidth = 0;
 		int tileImageHeight = 0;
 		for( int i=0; i<tileHeight; i++) {

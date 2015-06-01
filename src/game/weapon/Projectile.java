@@ -21,16 +21,14 @@ public class Projectile extends AEGameObject {
 		
 		this.setObjectName( "Projectile");
 		this.createSprite( "res/images/bullet.png");
-		this.createCollider( 3.0f);
 		
 		lifeTime = 2.0f;
-		bulletSpeed = AEMath.getRandomRange( 500.0f, 600.0f);
+		bulletSpeed = 300.0f;
 	}
 	
 	
 	public void setForward( AEVector forward) {
-		this.forward = forward;
-		
+		this.forward = forward;		
 		this.forward.normalize();
 	}
 	
@@ -48,14 +46,5 @@ public class Projectile extends AEGameObject {
 	@Override
 	public void onCollide(AEGameObject collider) {
 		super.onCollide(collider);
-
-		
-		if( firedFrom.getOwner() == collider)
-			return;
-		
-		if( collider.isTypeOf( Character.class)) {
-			((Character)collider).onTakeDamage( firedFrom);
-			AEFramework.getInstance().removeFromScene( this);
-		}
 	}
 }

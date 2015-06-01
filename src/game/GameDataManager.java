@@ -34,6 +34,7 @@ public class GameDataManager {
 		listWeapon = new LinkedList<Weapon>();
 		listWeapon.add( new WeaponRifle());
 		listWeapon.add( new WeaponRifleAK47());
+		listWeapon.add( new WeaponMelee()); // melee test
 
 		for( int i=0; i<selectedWeaponIdx.length; i++) {
 			selectedWeaponIdx[i] = -1;

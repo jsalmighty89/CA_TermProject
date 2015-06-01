@@ -55,10 +55,13 @@ public class GameLogic extends AEGameObject {
 	}
 	public void onWaveEnd() {
 		UIManager.getUIManager().setMainMessage( "Wave Clear!!", 2.0f);
+		GameLevel.getGameLevel().flushMonsterRespawned();
 		onWaveBegin();
 	}
 	
 	public void onMonsterDeath( Monster monster) {
+		GameLevel.getGameLevel().removeMonsterRespawned( monster);
+		
 		monsterRemain--;
 		if( monsterRemain <= 0) {
 			monsterRemain = 0;
@@ -74,22 +77,6 @@ public class GameLogic extends AEGameObject {
 		}
 		monsterMax = monsterCount;
 		monsterRemain = monsterMax;
-	}
-	
-	protected void respawnMonster( Class cls) {
-		float rad = AEMath.getRandomRange( 0.0f, 6.28f);
-		float distance = AEMath.getRandomRange( 300.0f, 500.0f);
-		AEVector respawnPosition = new AEVector( (float)Math.sin( rad)*distance, (float)Math.cos( rad)*distance);
-		
-		try {
-			Monster monster = (Monster)cls.newInstance();
-			monster.getTransform().setPosition( respawnPosition);
-			AEFramework.getInstance().addToSceneRoot( monster);
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-		}	
 	}
 	
 	public void update(float deltaTime, GameContainer gc) {
@@ -123,5 +110,24 @@ public class GameLogic extends AEGameObject {
 				listMonsterRespawn.remove( cls);
 			}
 		}
+	}
+	
+	protected void respawnMonster( Class cls) {
+		float rad = AEMath.getRandomRange( 0.0f, 6.28f);
+		float distance = AEMath.getRandomRange( 300.0f, 500.0f);
+		AEVector respawnPosition = new AEVector( (float)Math.sin( rad)*distance, (float)Math.cos( rad)*distance);
+		
+		try {
+			Monster monster = (Monster)cls.newInstance();
+			monster.getTransform().setPosition( respawnPosition);
+			AEFramework.getInstance().addToSceneRoot( monster);
+			
+			// Add to respawned monster list at GameLevel
+			GameLevel.getGameLevel().addMonsterRespawned( monster);
+		} catch (InstantiationException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		}	
 	}
 }
