@@ -16,11 +16,13 @@ public class WeaponGrenade extends WeaponRifle {
 		}
 		else {
 			AEVector mousePosition = GameLevel.getGameLevel().getPlayer().getMouseTargetPosition();
-
-			// create projectile
-			ProjectileGrenade grenade = new ProjectileGrenade( this);
-			grenade.setTargetPosition( transform.getPosition(), mousePosition);
-			AEFramework.getInstance().addToSceneRoot( grenade);
+			
+			if( mousePosition != null) {
+				// create projectile
+				ProjectileGrenade grenade = new ProjectileGrenade( this);
+				grenade.setTargetPosition( transform.getPosition(), mousePosition);
+				AEFramework.getInstance().addToSceneRoot( grenade);
+			}
 			
 			ammo--;
 		}

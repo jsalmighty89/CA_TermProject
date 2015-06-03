@@ -66,11 +66,12 @@ public class GameLevel extends AELevel {
 		gdManager.setSelectedWeaponIdx( 0, 1);
 		gdManager.setSelectedWeaponIdx( 1, 2);
 		gdManager.setSelectedWeaponIdx( 2, 3);
+		
 		// bind weapon
 		player.setWeapon( gdManager.getSelectedWeapon( 0), 0);
 		player.setWeapon( gdManager.getSelectedWeapon( 1), 1);
 		player.setWeapon( gdManager.getSelectedWeapon( 2), 2);
-		player.setWeapon( gdManager.getSelectedWeapon( 3), 3);
+
 		
 		// Respawned Monster List
 		listMonsterRespawned = new LinkedList<Monster>();

@@ -37,6 +37,7 @@ public class GameDataManager {
 		listWeapon.add( new WeaponMelee()); // melee test
 		listWeapon.add( new WeaponGrenade()); // grenade test
 
+
 		for( int i=0; i<selectedWeaponIdx.length; i++) {
 			selectedWeaponIdx[i] = -1;
 		}

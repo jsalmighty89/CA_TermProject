@@ -15,9 +15,11 @@ import game.weapon.*;
 
 public class Player extends Character {	
 	// weapon
-	protected static int weaponCount=4;
+	protected static int weaponCount=3;
 	protected int currentWeaponIdx;
 	protected Weapon weapon[] = new Weapon[weaponCount];
+	
+	protected WeaponSkill skill;
 	
 	protected AEGameObject laserSight;
 	protected float laserSightBlink;
@@ -75,6 +77,11 @@ public class Player extends Character {
 			weapon[currentWeaponIdx].onButtonFireUp();
 			currentWeaponIdx = slot;
 		}
+	}
+	public void setSkill( WeaponSkill skill) {
+		skill.setOwner( this);
+		this.addChild( skill);
+		this.skill = skill;
 	}
 	
 	public void update( float deltaTime, GameContainer gc) {
@@ -145,9 +152,14 @@ public class Player extends Character {
 		if( input.isKeyPressed( Input.KEY_3)) {
 			changeWeapon( 2);
 		}
-		if( input.isKeyPressed( Input.KEY_4)) {
-			changeWeapon( 3);
+		
+		// skill use button
+		if( input.isKeyPressed( Input.KEY_SPACE)) {
+			if( skill != null) {
+				skill.onButtonFireDown();
+			}
 		}
+	
 	}
 	
 	protected void move(float deltaTime, GameContainer gc) {
