@@ -23,4 +23,13 @@ public class AEMath {
 			returnValue = max;		
 		return returnValue;
 	}
+	
+	public static int clamp( int value, int min, int max) {
+		int returnValue = value;
+		if( returnValue < min)
+			returnValue = min;
+		else if( returnValue > max)
+			returnValue = max;
+		return returnValue;
+	}
 }

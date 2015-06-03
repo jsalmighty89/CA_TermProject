@@ -124,9 +124,18 @@ public class GameLogic extends AEGameObject {
 			
 			// Add to respawned monster list at GameLevel
 			GameLevel.getGameLevel().addMonsterRespawned( monster);
-		} catch (InstantiationException e) {
+			
+			if( currentWave <= 10)
+				monster.initMonsterStatEasy();
+			else if( currentWave <= 20)
+				monster.initMonsterStatNormal();
+			else
+				monster.initMonsterStatHard();
+		}
+		catch (InstantiationException e) {
 			e.printStackTrace();
-		} catch (IllegalAccessException e) {
+		}
+		catch (IllegalAccessException e) {
 			e.printStackTrace();
 		}	
 	}

@@ -1,83 +1,32 @@
 package game.character;
 
 import engine.base.AEMath;
+import engine.base.AEVector;
+import engine.object.AEGameObject;
 import game.DrawOrder;
 
 public class Monster_Boom extends Monster {
 	
 	public Monster_Boom(){
-		setEasy();
+		createSprite("res/images/monster/attack.jpg");
+		getSprite().setDrawOrder( DrawOrder.CHARACTER.ordinal());
 	}
 	
-    public void setEasy(){
-		 setObjectName("Monster");
-			
-		    createSprite("res/images/monster/attack.jpg");
-			getSprite().setDrawOrder( DrawOrder.CHARACTER.ordinal());
-			
-			createCollider( 20.0f);
-			isAlive = true;
-			
-			acceleratedRatio = 0.25f;
-			deacceleratedRatio = 0.1f;		
-			movementSpeed = AEMath.getRandomRange( minspeedlist[4],maxspeedlist[4]);
-			
-			// test
-			this.healthMax = this.healthMaxlist[0];
-			this.health = this.healthMax;
-			
-			this.setIndex(4);
-			
-		
-		
-		
-		
-	};
-	public void setNormal(){
-	    setObjectName("Monster");
-		
-	    createSprite("res/images/monster/attack.jpg");
-		getSprite().setDrawOrder( DrawOrder.CHARACTER.ordinal());
-		
-		createCollider( 20.0f);
-		isAlive = true;
-		
-		acceleratedRatio = 0.25f;
-		deacceleratedRatio = 0.1f;		
-		movementSpeed = AEMath.getRandomRange( minspeedlist[5],maxspeedlist[5]);
-		
-		// test
-		this.healthMax = this.healthMaxlist[2];
-		this.health = this.healthMax;
-		
-		this.setIndex(5);
-		
-		
+	public void initMonsterStatEasy() {
+		initMonsterStat( 0, 4, 4);
+	}
+	public void initMonsterStatNormal() {
+		initMonsterStat( 2, 5, 5);
+	}
+	public void initMonsterStatHard() {
+		initMonsterStat( 4, 6, 6);
+	}
 	
-		
-	};
-	public void setHard(){
-	    setObjectName("Monster");
-		
-	    createSprite("res/images/monster/attack.jpg");
-		getSprite().setDrawOrder( DrawOrder.CHARACTER.ordinal());
-		
-		createCollider( 20.0f);
-		isAlive = true;
-		
-		acceleratedRatio = 0.25f;
-		deacceleratedRatio = 0.1f;		
-		movementSpeed = AEMath.getRandomRange( minspeedlist[6],maxspeedlist[6]);
-		
-		// test
-		this.healthMax = this.healthMaxlist[4];
-		this.health = this.healthMax;
-		
-		this.setIndex(6);
-		
-		
-	
-		
-	};
+	public void onCollideEnter( AEGameObject other) {
+		super.onCollideEnter( other);
+		if( other.isTypeOf( Player.class)) {
+			onDeath();
+		}
+	}
 
 }

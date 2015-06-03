@@ -6,71 +6,20 @@ import game.DrawOrder;
 public class Monster_Nomove extends Monster {
 	
 	public Monster_Nomove(){
-        setEasy();
+        createSprite("res/images/monster/nomove.jpg");
+		getSprite().setDrawOrder( DrawOrder.CHARACTER.ordinal());
 	}
 	
-	public void setEasy(){
-		    setObjectName("Monster");
-			
-		    createSprite("res/images/monster/nomove.jpg");
-			getSprite().setDrawOrder( DrawOrder.CHARACTER.ordinal());
-			
-			createCollider( 20.0f);
-			isAlive = true;
-			
-			acceleratedRatio = 0.25f;
-			deacceleratedRatio = 0.1f;		
-			movementSpeed = 0;
-			
-			// test
-			this.healthMax = this.healthMaxlist[1];
-			this.health = this.healthMax;
-			
-			this.setIndex(1);
-		
-		
-	};
-	public void setNormal(){
-		    setObjectName("Monster");
-			
-		    createSprite("res/images/monster/nomove.jpg");
-			getSprite().setDrawOrder( DrawOrder.CHARACTER.ordinal());
-			
-			createCollider( 20.0f);
-			isAlive = true;
-			
-			acceleratedRatio = 0.25f;
-			deacceleratedRatio = 0.1f;		
-			movementSpeed = 0;
-			
-			// test
-			this.healthMax = this.healthMaxlist[3];
-			this.health = this.healthMax;
-			
-			this.setIndex(3);
-			
-	};
-	public void setHard(){
-	        setObjectName("Monster");
-			
-	        createSprite("res/images/monster/nomove.jpg");
-			getSprite().setDrawOrder( DrawOrder.CHARACTER.ordinal());
-			
-			createCollider( 20.0f);
-			isAlive = true;
-			
-			acceleratedRatio = 0.25f;
-			deacceleratedRatio = 0.1f;		
-			movementSpeed = 0;
-			
-			// test
-			this.healthMax = this.healthMaxlist[5];
-			this.health = this.healthMax;
-			
-			this.setIndex(5);
-			
-		
-		
-	};
-
+	public void initMonsterStatEasy() {
+		initMonsterStat( 1, 1, 0);
+		movementSpeed = 0.0f;
+	}
+	public void initMonsterStatNormal() {
+		initMonsterStat( 3, 3, 0);
+		movementSpeed = 0.0f;
+	}
+	public void initMonsterStatHard() {
+		initMonsterStat( 5, 5, 0);
+		movementSpeed = 0.0f;
+	}
 }

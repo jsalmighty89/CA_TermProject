@@ -12,13 +12,23 @@ import game.GameLevel;
 
 public class Monster extends Character {
 	//7가지 데미지,체력,스피드
-	public int index; //최대 0 ~6
-    public float healthMaxlist[] = new float[7];
-	public float damagelist[] = new float[7];
-	public float minspeedlist[] = new float[7];
-	public float maxspeedlist[] = new float[7];
+	static protected int TABLE_COUNT = 7; 
+    static protected float healthMaxList[] = new float[TABLE_COUNT];
+    static protected float damageList[] = new float[TABLE_COUNT];
+    static protected float speedList[] = new float[TABLE_COUNT];
+    
+    protected float damage = 10.0f;
+	
+	// create table
+	{
+		for(int i=0; i<TABLE_COUNT; i++) {
+			healthMaxList[i] = 100.0f * (i+1);
+		    damageList[i] = 10.0f * (i+1);
+			speedList[i] = 90.0f * (i+1);
+		}
+	}
+	
 	public Monster() {
-		/*
 		setObjectName("Monster");
 		
 		createSprite("res/images/player.png");
@@ -31,41 +41,41 @@ public class Monster extends Character {
 		deacceleratedRatio = 0.1f;		
 		movementSpeed = AEMath.getRandomRange( 50.0f, 100.0f);
 		
-		// test
-		this.healthMax = 1.0f;
+		// default health
+		this.healthMax = 100.0f;
 		this.health = this.healthMax;
-		*/
 	}
 	
-	public void setIndex(int index){
-		this.index = index;
+	public void initMonsterStatEasy() {
+		initMonsterStat( 0, 0, 0);
 	}
+	public void initMonsterStatNormal() {
+		initMonsterStat( 1, 1, 1);
+	}
+	public void initMonsterStatHard() {
+		initMonsterStat( 2, 2, 2);
+	}
+	
+	public void initMonsterStat( int idxHealth, int idxDamage, int idxSpeed) {
+		idxHealth = AEMath.clamp( idxHealth, 0, TABLE_COUNT-1);
+		idxDamage = AEMath.clamp( idxDamage, 0, TABLE_COUNT-1);
+		idxSpeed = AEMath.clamp( idxSpeed, 0, TABLE_COUNT-1);
+		
+		// health
+		healthMax = healthMaxList[idxHealth];
+		
+		// damage
+		damage = damageList[idxDamage];
+		
+		// speed
+		float speedMin = speedList[idxSpeed] * 0.7f;
+		float speedMax = speedList[idxSpeed];
+		movementSpeed = AEMath.getRandomRange( speedMin, speedMax);
+	}
+	
 	public float getDamage(){
-		return damagelist[index];
+		return damage;
 	}
-	public int getIndex(){
-		return this.index;
-	}
-	{
-		for(int i=0; i<healthMaxlist.length; i++)
-			healthMaxlist[i] = 100*(i+1);
-	}
-	
-	{
-	for(int i=0; i<damagelist.length; i++)
-		    damagelist[i] = 10*(i+1);	
-    }
-	{
-		for(int i=0; i<minspeedlist.length; i++){
-			minspeedlist[i] = 70*(i+1);
-		}
-	}
-	{
-		for(int i=0; i<maxspeedlist.length; i++){
-			maxspeedlist[i] = 90*(i+1);
-		}
-	}
-
 	
 	public void onCollideEnter( AEGameObject other) {
 		if( other.isTypeOf( Player.class)) {
