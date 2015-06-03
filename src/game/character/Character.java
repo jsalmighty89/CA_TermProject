@@ -41,7 +41,7 @@ public class Character extends AEGameObject {
 		return health;
 	}
 	public void addHealth( float health) {
-		health = Math.min( healthMax, this.health + health);		
+		this.health = Math.min( healthMax, this.health + health);		
 	}
 	public void decreaseHealth( float health) {
 		this.health -= health;
