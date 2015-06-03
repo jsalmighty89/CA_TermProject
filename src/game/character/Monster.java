@@ -11,7 +11,14 @@ import game.DrawOrder;
 import game.GameLevel;
 
 public class Monster extends Character {
+	//7가지 데미지,체력,스피드
+	public int index; //최대 0 ~6
+    public float healthMaxlist[] = new float[7];
+	public float damagelist[] = new float[7];
+	public float minspeedlist[] = new float[7];
+	public float maxspeedlist[] = new float[7];
 	public Monster() {
+		/*
 		setObjectName("Monster");
 		
 		createSprite("res/images/player.png");
@@ -27,7 +34,38 @@ public class Monster extends Character {
 		// test
 		this.healthMax = 1.0f;
 		this.health = this.healthMax;
+		*/
 	}
+	
+	public void setIndex(int index){
+		this.index = index;
+	}
+	public float getDamage(){
+		return damagelist[index];
+	}
+	public int getIndex(){
+		return this.index;
+	}
+	{
+		for(int i=0; i<healthMaxlist.length; i++)
+			healthMaxlist[i] = 100*(i+1);
+	}
+	
+	{
+	for(int i=0; i<damagelist.length; i++)
+		    damagelist[i] = 10*(i+1);	
+    }
+	{
+		for(int i=0; i<minspeedlist.length; i++){
+			minspeedlist[i] = 70*(i+1);
+		}
+	}
+	{
+		for(int i=0; i<maxspeedlist.length; i++){
+			maxspeedlist[i] = 90*(i+1);
+		}
+	}
+
 	
 	public void onCollideEnter( AEGameObject other) {
 		if( other.isTypeOf( Player.class)) {
@@ -40,7 +78,7 @@ public class Monster extends Character {
 			other.addForce( direction, 350.0f);
 			
 			Player player = (Player)other;
-			player.decreaseHealth( 5.0f);
+			player.decreaseHealth(getDamage());
 		}
 		else {
 			AEVector monsterPosition = transform.getPosition();
@@ -91,4 +129,6 @@ public class Monster extends Character {
 			this.getTransform().setRotation( rad - AEMath.deg2rad( 90.0f));
 		}
 	}
+	
+	
 }

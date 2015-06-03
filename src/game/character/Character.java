@@ -23,7 +23,7 @@ public class Character extends AEGameObject {
 	public Character() {
 		currentMovement = new AEVector();
 		
-		healthMax = 100.0f;
+		healthMax = 1000.0f;
 		
 		initialize();
 	}

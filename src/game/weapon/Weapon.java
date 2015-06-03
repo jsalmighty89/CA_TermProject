@@ -33,7 +33,7 @@ public class Weapon extends AEGameObject {
 		chargeTimeElapsed = chargeTime;		// weapon is charged at the beginning
 		reloadingTimeElapsed = 0.0f;
 		
-		damage = 10.0f;
+		damage = 400.0f;
 	}
 	
 	public void setOwner( Character owner) {

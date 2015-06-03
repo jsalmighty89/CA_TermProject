@@ -15,7 +15,7 @@ public class GameLogic extends AEGameObject {
 	protected int currentWave;
 	protected LinkedList<Class> listMonsterRespawn;
 	
-	protected float monsterRespawnTime = 5.0f;
+	protected float monsterRespawnTime = 1.2f;
 	protected float monsterRespawnTimeElapsed = 4.0f;
 	
 	protected WaveBase wave;
