@@ -20,7 +20,7 @@ public class Test extends BasicGame{
 		// TODO Auto-generated constructor stub
 	}
 
-	public static void main(String[] args) throws SlickException {
+	/*public static void main(String[] args) throws SlickException {
 		// TODO Auto-generated method stub		
 		
 		AppGameContainer app = new AppGameContainer( new Test("TestWindow"));
@@ -28,7 +28,7 @@ public class Test extends BasicGame{
 		app.setDisplayMode( 1280, 720, false);
 		app.start();
 		
-	}
+	}*/
 
 	@Override
 	public void render(GameContainer gc, Graphics graphic) throws SlickException {		

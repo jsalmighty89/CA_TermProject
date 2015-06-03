@@ -118,7 +118,7 @@ public class Launcher extends JFrame implements ActionListener {
 			AppGameContainer app;
 			try {
 				app = new AppGameContainer(new Test("TestWindow"));
-				app.setDisplayMode(640, 480, false);
+				app.setDisplayMode( 1280, 720, false);
 				app.start();
 				
 			} catch (SlickException e1) {
