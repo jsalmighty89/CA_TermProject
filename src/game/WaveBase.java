@@ -5,7 +5,7 @@ import java.util.LinkedList;
 import engine.object.AEGameObject;
 import game.character.Monster;
 import game.character.Monster_Attack;
-import game.character.Monster_Boom;
+import game.character.Monster_Bomb;
 import game.character.Monster_Boss;
 import game.character.Monster_Nomove;
 import game.character.Monster_Standard;
