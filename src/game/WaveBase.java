@@ -16,14 +16,6 @@ public class WaveBase extends AEGameObject {
 	
 	public WaveBase() {
 		listMonster = new LinkedList<Class>();
-	/*	
-		addMonster(Monster_Boom.class, 70);
-		addMonster(Monster_Boss.class, 15);
-		addMonster(Monster_Nomove.class,15);
-		addMonster(Monster_Attack.class,30);
-		*/
-		addMonster(Monster_Standard.class,70);
-		
 	}
 	
 	public LinkedList<Class> getMonsterList() {

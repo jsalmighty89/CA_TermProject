@@ -22,12 +22,19 @@ public class GameLogic extends AEGameObject {
 	protected float itemRespawnTime = 10.0f;
 	protected float itemRespawnTimeElapsed = 6.0f;
 
-	protected WaveBase wave;
+	protected LinkedList<WaveBase> listWave;
 	protected int monsterMax;
 	protected int monsterRemain;
 
 	public GameLogic() {
-		wave = new WaveBase();
+		// wave list
+		listWave = new LinkedList<WaveBase>();
+		listWave.add( new WaveTypeA());
+		listWave.add( new WaveTypeB());
+		listWave.add( new WaveTypeC());
+		listWave.add( new WaveTypeD());
+		listWave.add( new WaveTypeE());
+		
 		listMonsterRespawn = new LinkedList<Class>();
 	}
 
@@ -57,8 +64,8 @@ public class GameLogic extends AEGameObject {
 	}
 
 	public void onWaveBegin() {
-		currentWave++;
 		pushNextWave();
+		currentWave++;
 		UIManager.getUIManager().setMainMessage(
 				"Wave " + currentWave + " Start!", 2.0f);
 	}
@@ -70,16 +77,20 @@ public class GameLogic extends AEGameObject {
 	}
 
 	public void onMonsterDeath(Monster monster) {
-		GameLevel.getGameLevel().removeMonsterRespawned(monster);
+		boolean isRemoved = GameLevel.getGameLevel().removeMonsterRespawned(monster);
 
-		monsterRemain--;
-		if (monsterRemain <= 0) {
-			monsterRemain = 0;
-			onWaveEnd();
+		// avoid duplicate death
+		if( isRemoved) {
+			monsterRemain--;
+			if (monsterRemain <= 0) {
+				monsterRemain = 0;
+				onWaveEnd();
+			}
 		}
 	}
 
 	public void pushNextWave() {
+		WaveBase wave = listWave.get( currentWave % listWave.size());
 		LinkedList<Class> listNextWave = wave.getMonsterList();
 		int monsterCount = listNextWave.size();
 		for (int i = 0; i < monsterCount; i++) {

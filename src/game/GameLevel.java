@@ -112,9 +112,13 @@ public class GameLevel extends AELevel {
 		if( listMonsterRespawned.contains( monster) == false)
 			listMonsterRespawned.add( monster);
 	}
-	public void removeMonsterRespawned( Monster monster) {
-		if( listMonsterRespawned.contains( monster))
+	public boolean removeMonsterRespawned( Monster monster) {
+		if( listMonsterRespawned.contains( monster)) {
 			listMonsterRespawned.remove( monster);
+			return true;
+		}
+		
+		return false;
 	}
 	public void flushMonsterRespawned() {
 		listMonsterRespawned.clear();
