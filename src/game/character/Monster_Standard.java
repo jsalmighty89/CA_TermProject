@@ -7,6 +7,7 @@ import engine.base.AEVector;
 import engine.framework.AEFramework;
 import engine.object.AEGameObject;
 import game.DrawOrder;
+import game.GameLevel;
 
 // µ¹¾Æ´Ù´Ô
 public class Monster_Standard extends Monster {
@@ -27,6 +28,19 @@ public class Monster_Standard extends Monster {
 	}
 	
 	protected void move(float deltaTime, GameContainer gc) {
+		///// after
+		AEVector moveDir = new AEVector( 0.0f, 1.0f, 0.0f);
+		moveDir = AEVector.multiply( moveDir, movementSpeed);
+		AEVector position = getTransform().getPosition();
+		
+		currentMovement = AEVector.lerp( currentMovement, moveDir, acceleratedRatio);
+		
+		position = AEVector.add( position, AEVector.multiply( currentMovement, deltaTime));
+		this.getTransform().setPosition( position);
+		
+		
+		//// before
+		/*
 		float rad2 = AEMath.getRandomRange(0.0f, 0.0f);
 		float distance = AEMath.getRandomRange(300.0f, 500.0f);
 		AEVector respawnPosition = new AEVector((float) Math.sin(rad2)
@@ -60,6 +74,7 @@ public class Monster_Standard extends Monster {
 			// rotate monster
 			this.getTransform().setRotation( rad - AEMath.deg2rad( 90.0f));
 		}
+		*/
 	}
 	/*
 	public void onCollideEnter( AEGameObject other) {
@@ -69,4 +84,16 @@ public class Monster_Standard extends Monster {
 		}
 }
 */
+	public void update(float deltaTime, GameContainer gc) {
+		super.update( deltaTime, gc);
+		
+		GameLevel level = GameLevel.getGameLevel();
+		float radius = level.getStageRadius();
+		float radius2 = radius * radius;
+		AEVector monsterPosition = getTransform().getPosition();
+		float distFromZero = monsterPosition.lengthSqrt();
+		if (distFromZero >= radius2) {
+			onDeath();
+		}
+	}
 }

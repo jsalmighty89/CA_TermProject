@@ -69,6 +69,13 @@ public class Weapon extends AEGameObject {
 		isReloading = false;
 	}
 	
+	public boolean isReloading() {
+		return isReloading;
+	}
+	public float remainReloadingTime() {
+		return reloadingTime - reloadingTimeElapsed;
+	}
+	
 	public void update( float deltaTime, GameContainer gc) {
 		
 		if( chargeTimeElapsed >= chargeTime) {

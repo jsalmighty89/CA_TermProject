@@ -5,7 +5,7 @@ import engine.base.AEVector;
 import engine.object.AEGameObject;
 import game.DrawOrder;
 
-// monster 무조건
+// monster의 분류 - 
 
 public class Monster_Attack extends Monster {
 	

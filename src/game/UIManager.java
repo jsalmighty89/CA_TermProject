@@ -27,6 +27,10 @@ public class UIManager extends AEGameObject {
 	protected AEUIObject textWeaponAmmo;
 	protected AEUIObject textWeaponSelector;
 	
+	//skill
+	protected AEUIObject textSkillName;
+	protected AEUIObject textSkillStatus;
+	
 	public UIManager() {
 		windowRight = AEFramework.getInstance().getWindowInfo().getWidth();
 		windowBottom = AEFramework.getInstance().getWindowInfo().getHeight();
@@ -51,6 +55,14 @@ public class UIManager extends AEGameObject {
 		
 		textWeaponSelector = createTextObject( "Default");
 		textWeaponSelector.getTransform().setPosition( new AEVector( windowRight - 150.0f, windowBottom - 120.0f));
+		
+		
+		// skill
+		textSkillName = createTextObject( "Default");
+		textSkillName.getTransform().setPosition( new AEVector( windowRight - 150.0f, windowBottom - 250.0f));
+		
+		textSkillStatus = createTextObject( "Default");
+		textSkillStatus.getTransform().setPosition( new AEVector( windowRight - 150.0f, windowBottom - 220.0f));
 	}
 	public static UIManager getUIManager() {
 		return GameLevel.getGameLevel().getUIManager();
@@ -135,5 +147,19 @@ public class UIManager extends AEGameObject {
 				buffer += String.format( " %d ", i+1);
 		}
 		textWeaponSelector.getText().setText( buffer);
+		
+		
+		// skill
+		WeaponSkill skill = player.getSkill();
+		if( skill != null) {
+			textSkillName.getText().setText( skill.getObjectName());
+			if( skill.isReloading()) {
+				buffer = String.format( "WAIT : %.1f", skill.remainReloadingTime());
+				textSkillStatus.getText().setText( buffer);
+			}
+			else {
+				textSkillStatus.getText().setText( "SKILL READY");
+			}
+		}
 	}
 }

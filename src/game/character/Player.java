@@ -26,6 +26,11 @@ public class Player extends Character {
 	
 	protected AEVector mouseWorldPos;
 	
+	// dash
+	protected boolean isDash = false;
+	protected float originalMoveSpeed;
+	protected float dashTimeRemain;
+	
 	public Player() {
 		setObjectName("Player");
 		
@@ -35,6 +40,7 @@ public class Player extends Character {
 		createCollider( 20.0f);
 		
 		isAlive = true;
+		isDash = false;
 		
 		acceleratedRatio = 0.25f;
 		deacceleratedRatio = 0.1f;
@@ -83,18 +89,39 @@ public class Player extends Character {
 		this.addChild( skill);
 		this.skill = skill;
 	}
+	public WeaponSkill getSkill() {
+		return skill;
+	}
+	
+	public void startDash( float dashTime, float dashPower) {
+		dashTimeRemain = dashTime;
+		isDash = true;
+		originalMoveSpeed = movementSpeed;
+		movementSpeed *= dashPower;
+	}
 	
 	public void update( float deltaTime, GameContainer gc) {
 		super.update(deltaTime, gc);
 		
-		if( isAlive)
+		if( isAlive) {
 			input( gc);
+			
+			if( isDash) {
+				dashTimeRemain -= deltaTime;
+				if( dashTimeRemain <= 0.0f) {
+					isDash = false;
+					movementSpeed = originalMoveSpeed;
+				}
+			}
+		}
 		
 		laserSightBlink -= deltaTime;
 		if( laserSightBlink <= 0.0f) {
 			laserSight.setVisible( !laserSight.isVisible());
 			laserSightBlink = AEMath.getRandomRange( 0.0f, 0.1f);
 		}
+		
+		
 	}
 	
 	public void onDeath() {

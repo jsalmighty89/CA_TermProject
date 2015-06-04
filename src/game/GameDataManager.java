@@ -6,9 +6,10 @@ import game.weapon.*;
 import java.util.LinkedList;
 
 public class GameDataManager {	
+
 	
 	protected LinkedList<Player> listPlayer;
-	protected int selectedPlayerIdx;
+	public static int selectedPlayerIdx = -1;
 	
 	protected LinkedList<Weapon> listWeapon;	
 	protected int selectedWeaponIdx[] = new int[3];
@@ -29,7 +30,7 @@ public class GameDataManager {
 		listPlayer.add( new PlayerJH());
 		listPlayer.add( new PlayerSHK());
 		
-		selectedPlayerIdx = -1;
+		//selectedPlayerIdx = -1;
 		
 		listWeapon = new LinkedList<Weapon>();
 		listWeapon.add( new WeaponRifle()); // rifle test
@@ -55,6 +56,7 @@ public class GameDataManager {
 		return selectedPlayerIdx;
 	}
 	public void setSelectedPlayerIdx( int idx) {
+		System.out.println( "setSelectedPlayerIdx");
 		selectedPlayerIdx = idx;
 	}
 	

@@ -112,7 +112,8 @@ public class Monster extends Character {
 	
 	protected void move(float deltaTime, GameContainer gc) {
 		
-		Player player = (Player)AEFramework.getInstance().findGameObject( "Player");
+		//Player player = (Player)AEFramework.getInstance().findGameObject( "Player");
+		Player player = GameLevel.getGameLevel().getPlayer();
 		if( player != null) {		
 			AEVector position = this.getTransform().getPosition();			
 			AEVector playerPos = player.getTransform().getPosition();
@@ -138,7 +139,5 @@ public class Monster extends Character {
 			// rotate monster
 			this.getTransform().setRotation( rad - AEMath.deg2rad( 90.0f));
 		}
-	}
-	
-	
+	}	
 }
