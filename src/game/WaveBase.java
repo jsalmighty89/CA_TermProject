@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import engine.object.AEGameObject;
 import game.character.Monster;
 import game.character.Monster_Attack;
+import game.character.Monster_Boom;
 import game.character.Monster_Boss;
 import game.character.Monster_Nomove;
 import game.character.Monster_Standard;
@@ -15,9 +16,14 @@ public class WaveBase extends AEGameObject {
 	
 	public WaveBase() {
 		listMonster = new LinkedList<Class>();
-		addMonster(Monster_Attack.class, 70);
+	/*	
+		addMonster(Monster_Boom.class, 70);
 		addMonster(Monster_Boss.class, 15);
 		addMonster(Monster_Nomove.class,15);
+		addMonster(Monster_Attack.class,30);
+		*/
+		addMonster(Monster_Standard.class,70);
+		
 	}
 	
 	public LinkedList<Class> getMonsterList() {

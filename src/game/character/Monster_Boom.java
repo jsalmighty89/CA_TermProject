@@ -8,13 +8,14 @@ import game.DrawOrder;
 public class Monster_Boom extends Monster {
 	
 	public Monster_Boom(){
-		createSprite("res/images/monster/attack.jpg");
+		createSprite("res/images/monster/boom.png");
 		getSprite().setDrawOrder( DrawOrder.CHARACTER.ordinal());
 	}
 	
 	public void initMonsterStatEasy() {
 		initMonsterStat( 0, 4, 4);
 	}
+	
 	public void initMonsterStatNormal() {
 		initMonsterStat( 2, 5, 5);
 	}

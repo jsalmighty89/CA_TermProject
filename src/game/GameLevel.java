@@ -56,7 +56,7 @@ public class GameLevel extends AELevel {
 		int selectedPlayerIdx = gdManager.getSelectedPlayerIdx();
 		if( selectedPlayerIdx == -1) {
 			System.out.println( "[WARN] NO PLAYER SELECTED!");
-			selectedPlayerIdx = 0;
+			selectedPlayerIdx = 3;
 		}
 		player = gdManager.getPlayer( selectedPlayerIdx);
 		AEFramework.getInstance().addToSceneRoot( player);

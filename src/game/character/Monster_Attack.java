@@ -5,12 +5,12 @@ import engine.base.AEVector;
 import engine.object.AEGameObject;
 import game.DrawOrder;
 
-// monster의 분류 - 
+// monster 무조건
 
 public class Monster_Attack extends Monster {
 	
 	public Monster_Attack(){
-		createSprite("res/images/monster/attack.jpg");
+		createSprite("res/images/monster/attack.png");
 		getSprite().setDrawOrder( DrawOrder.CHARACTER.ordinal());
 	}
 	

@@ -6,7 +6,7 @@ import game.DrawOrder;
 public class Monster_Boss extends Monster {
 	
 	public Monster_Boss(){
-        createSprite("res/images/monster/attack_boss.jpg");
+        createSprite("res/images/monster/boss.png");
 		getSprite().setDrawOrder( DrawOrder.CHARACTER.ordinal());
 	}
 	

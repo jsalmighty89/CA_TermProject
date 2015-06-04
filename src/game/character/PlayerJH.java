@@ -1,10 +1,15 @@
 package game.character;
 
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Input;
+
 import engine.base.AEVector;
 import engine.object.AEGameObject;
 import game.DrawOrder;
 
 public class PlayerJH extends Player {
+	
+	static float dashTime;
 	
 	public PlayerJH() {
         setObjectName("Player");
@@ -30,6 +35,18 @@ public class PlayerJH extends Player {
 		this.addChild( laserSight);
 	}
 
+	protected void dash(float deltaTime, GameContainer gc){
+		Input input = gc.getInput();
+		
+		if (input.isKeyPressed(Input.KEY_SPACE)){
+		movementSpeed *= 4;	
+		dashTime = 0.1f;
+		System.out.println("Dash!!");
+		}
+		if(dashTime<deltaTime){
+			movementSpeed = 150.0f;
+		}
+	}
     }
 	
 	
