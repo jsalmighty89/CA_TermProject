@@ -13,18 +13,24 @@ import game.GameLevel;
 public class Monster_Standard extends Monster {
 	
 	public Monster_Standard(){
-		createSprite("res/images/monster/attack.png");
+		createSprite("res/images/monster/fire.png");
 		getSprite().setDrawOrder( DrawOrder.CHARACTER.ordinal());
 	}
 	
 	public void initMonsterStatEasy() {
 		initMonsterStat( 1, 1, 1);
+		healthMax = healthMax * 1000.0f;
+		health = healthMax;
 	}
 	public void initMonsterStatNormal() {
 		initMonsterStat( 2, 2, 2);
+		healthMax = healthMax * 1000.0f;
+		health = healthMax;
 	}
 	public void initMonsterStatHard() {
 		initMonsterStat( 3, 3, 3);
+		healthMax = healthMax * 1000.0f;
+		health = healthMax;
 	}
 	
 	protected void move(float deltaTime, GameContainer gc) {

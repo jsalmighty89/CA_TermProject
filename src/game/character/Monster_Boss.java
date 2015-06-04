@@ -12,17 +12,17 @@ public class Monster_Boss extends Monster {
 	
 	public void initMonsterStatEasy() {
 		initMonsterStat( 1, 4, 1);
-		healthMax = healthMax * 10.0f;
+		healthMax = healthMax * 50.0f;
 		health = healthMax;
 	}
 	public void initMonsterStatNormal() {
 		initMonsterStat( 3, 5, 3);
-		healthMax = healthMax * 10.0f;
+		healthMax = healthMax * 50.0f;
 		health = healthMax;
 	}
 	public void initMonsterStatHard() {
 		initMonsterStat( 5, 6, 5);
-		healthMax = healthMax * 10.0f;
+		healthMax = healthMax * 50.0f;
 		health = healthMax;
 	}
 }

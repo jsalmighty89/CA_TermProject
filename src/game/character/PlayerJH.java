@@ -6,6 +6,9 @@ import org.newdawn.slick.Input;
 import engine.base.AEVector;
 import engine.object.AEGameObject;
 import game.DrawOrder;
+import game.weapon.WeaponSkillDash;
+import game.weapon.WeaponSkillPush;
+import game.weapon.WeaponSkillWarp;
 
 public class PlayerJH extends Player {
 	
@@ -27,6 +30,9 @@ public class PlayerJH extends Player {
 		
 		currentWeaponIdx = 0;
 		
+		//setSkill( new WeaponSkillPush());
+		setSkill( new WeaponSkillWarp());
+		
 		laserSight = new AEGameObject();
 		laserSight.setObjectName( "LaserSight");
 		laserSight.createSprite( "res/images/laser.png");
@@ -35,19 +41,9 @@ public class PlayerJH extends Player {
 		this.addChild( laserSight);
 	}
 
-	protected void dash(float deltaTime, GameContainer gc){
-		Input input = gc.getInput();
-		
-		if (input.isKeyPressed(Input.KEY_SPACE)){
-		movementSpeed *= 4;	
-		dashTime = 0.1f;
-		System.out.println("Dash!!");
-		}
-		if(dashTime<deltaTime){
-			movementSpeed = 150.0f;
-		}
-	}
-    }
+	
+}
+    
 	
 	
 

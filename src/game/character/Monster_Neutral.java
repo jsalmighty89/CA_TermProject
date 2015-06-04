@@ -11,7 +11,7 @@ import game.DrawOrder;
 public class Monster_Neutral extends Monster {
 	
 	public Monster_Neutral(){
-		createSprite("res/images/monster/attack.png");
+		createSprite("res/images/monster/good.png");
 		getSprite().setDrawOrder( DrawOrder.CHARACTER.ordinal());
 	}
 	

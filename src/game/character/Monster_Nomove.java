@@ -1,8 +1,12 @@
 package game.character;
 
+import org.newdawn.slick.GameContainer;
+
 import engine.base.AEMath;
+import engine.base.AEVector;
 import engine.object.AEGameObject;
 import game.DrawOrder;
+import game.GameLevel;
 
 // 안움직임 - 부딪히면 터짐
 public class Monster_Nomove extends Monster {
@@ -31,4 +35,19 @@ public class Monster_Nomove extends Monster {
 			onDeath();
 		}
    }
-}
+    protected void move(float deltaTime, GameContainer gc) {
+	        float rad2 = AEMath.getRandomRange(0.0f, 0.0f);
+	        float distance = AEMath.getRandomRange(0.0f, 0.0f);
+         	AEVector respawnPosition = new AEVector(rad2,distance);
+		//Player player = (Player)AEFramework.getInstance().findGameObject( "Player");
+				
+			
+			AEVector moveDir = respawnPosition;
+			moveDir.normalize();
+			
+			
+		}
+	}	
+
+	
+
