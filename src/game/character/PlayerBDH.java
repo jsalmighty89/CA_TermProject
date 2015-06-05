@@ -25,7 +25,9 @@ public class PlayerBDH extends Player {
     public PlayerBDH() {
         setObjectName("Player");
 
-        createSprite("res/images/ironman.png");
+        createSprite("res/images/BDHhulk.png");
+        this.getSprite().loadImage("res/images/BDHatk1.png");  // 공격 모션 두개
+        this.getSprite().loadImage("res/images/BDHatk2.png");
         getSprite().setDrawOrder( DrawOrder.CHARACTER.ordinal());
 
         createCollider( 20.0f);
@@ -41,87 +43,15 @@ public class PlayerBDH extends Player {
 
     }
 
-    public static String getDescription() {
-        return "������ �ۼ����� ���� ĳ�����Դϴ�.";
-    }
-
-    public int getCurrentWeaponIdx() {
-        return currentWeaponIdx;
-    }
-    public Weapon getCurrentWeapon() {
-        return weapon[currentWeaponIdx];
-    }
-    public Weapon getWeapon( int idx) {
-        if( idx < 0 ||  idx >= weaponCount)
-            return null;
-
-        return weapon[idx];
-    }
-
-    public void setWeapon( Weapon weapon, int slot) {
-        weapon.setOwner( this);
-        this.addChild( weapon);
-        this.weapon[slot] = weapon;
-    }
-    public void changeWeapon( int slot) {
-        if( currentWeaponIdx != slot) {
-            weapon[currentWeaponIdx].onButtonFireUp();
-            currentWeaponIdx = slot;
-        }
-    }
 
 
 
-    protected void input( GameContainer gc) {
-        Input input = gc.getInput();
 
 
-        // mouse targeting
-        float x = input.getMouseX();
-        float y = input.getMouseY();
-        AEVector mousePosition = new AEVector( x, y, 0.0f);
-
-        AECamera2D camera = AEFramework.getInstance().getActiveCamera();
-        mouseWorldPos = camera.getWorldFromScreen( mousePosition);
-
-        AEVector playerPos = this.getTransform().getPosition();
-
-        float dx = mouseWorldPos.x - playerPos.x;
-        float dy = mouseWorldPos.y - playerPos.y;
-        float rad = (float)Math.atan2( dy, dx);
-
-        // rotate player
-        transform.setRotation( rad - AEMath.deg2rad( 90.0f));
 
 
-        // mouse left button down
-        if( input.isMouseButtonDown( 0)) {
-            weapon[currentWeaponIdx].onButtonFireDown();
-        }
-        // up
-        else {
-            weapon[currentWeaponIdx].onButtonFireUp();
-        }
 
-        // reload
-        if( input.isKeyPressed( Input.KEY_R)) {
-            weapon[currentWeaponIdx].onButtonReloadDown();
-        }
 
-        // weapon change
-        if( input.isKeyPressed( Input.KEY_1)) {
-            changeWeapon( 0);
-        }
-        if( input.isKeyPressed( Input.KEY_2)) {
-            changeWeapon( 1);
-        }
-        if( input.isKeyPressed( Input.KEY_3)) {
-            changeWeapon( 2);
-        }
-        if( input.isKeyPressed( Input.KEY_4)) {
-            changeWeapon( 3);
-        }
-    }
 
 
 }
