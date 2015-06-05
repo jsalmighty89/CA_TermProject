@@ -30,6 +30,8 @@ public class Player extends Character {
 	protected boolean isDash = false;
 	protected float originalMoveSpeed;
 	protected float dashTimeRemain;
+	//
+	protected boolean iswarp = false;
 	
 	public Player() {
 		setObjectName("Player");
@@ -183,6 +185,17 @@ public class Player extends Character {
 		// skill use button
 		if( input.isKeyPressed( Input.KEY_SPACE)) {
 			if( skill != null) {
+				skill.onButtonFireDown();
+			}
+		}
+		if( input.isKeyPressed( Input.KEY_F)){
+			if( skill != null) {
+				skill.onButtonFireDown();
+			}
+		}
+		
+		if( input.isMousePressed(Input.MOUSE_RIGHT_BUTTON)){
+			if( skill != null){
 				skill.onButtonFireDown();
 			}
 		}
