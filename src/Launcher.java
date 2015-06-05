@@ -69,13 +69,13 @@ public class Launcher extends JFrame implements ActionListener {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		// ½ÃÀÛ¹öÆ°. ´©¸£¸é °ÔÀÓ ½ÃÀÛ
+		// ï¿½ï¿½ï¿½Û¹ï¿½Æ°. ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		JButton btnNewButton = new JButton("Start");
 		btnNewButton.addActionListener(this);
 		btnNewButton.setBounds(12, 201, 200, 50);
 		contentPane.add(btnNewButton);
 
-		// Á¾·á¹öÆ°. ´©¸£¸é ·±ÃÄ Á¾·á
+		// ï¿½ï¿½ï¿½ï¿½ï¿½Æ°. ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		JButton btnNewButton_1 = new JButton("Exit");
 		btnNewButton_1.addActionListener(this);
 		btnNewButton_1.setBounds(224, 201, 200, 50);
@@ -152,7 +152,7 @@ public class Launcher extends JFrame implements ActionListener {
 			GameDataManager.selectedPlayerIdx = btnCharacter.idx;
 			
 			if (e.getActionCommand().equals("Character 2")) {
-				lblNewLabel.setIcon(new ImageIcon("res/images/ironman.png"));
+				lblNewLabel.setIcon(new ImageIcon("res/images/BDHhulk.png"));
 			} else if (e.getActionCommand().equals("Character 4")) {
 				lblNewLabel.setIcon(new ImageIcon("res/images/playerhun.png"));
 			} else if (e.getActionCommand().equals("Character 5")) {
