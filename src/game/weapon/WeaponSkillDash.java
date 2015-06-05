@@ -6,6 +6,7 @@ import game.character.Player;
 public class WeaponSkillDash extends WeaponSkill {
 	public WeaponSkillDash() {
 		setObjectName( "Skill Dash");
+		reloadingTime = 0.1f;
 	}
 	
 	public void onFire() {
@@ -13,7 +14,7 @@ public class WeaponSkillDash extends WeaponSkill {
 		
 		Player player = GameLevel.getGameLevel().getPlayer();
 		if( player != null) {
-			player.startDash( 0.1f, 4.0f);
+			player.startDash( 0.1f, 6.0f);
 		}
 	}
 }

@@ -54,6 +54,9 @@ public class Character extends AEGameObject {
 		decreaseHealth( weapon.getDamage());
 	}
 	
+	public void onFreeze(){
+		movementSpeed = 0.0f;
+	}
 	public void onDeath() {
 		isAlive = false;
 	}
